@@ -203,6 +203,7 @@ public class MyServiceImpl implements IMyService {
             map1.put("level", "F");
             map1.put("recommend", "高风险的用户建议拒绝");
             MyResult.CallBack(userid, orderid, new ResultW("100000", "查询成功", map1));
+            log.info("身份证号在黑名单中");
             return;
         }
         //============================================================
@@ -222,6 +223,7 @@ public class MyServiceImpl implements IMyService {
             pp.put("code", "E");
             pp.put("recommend", "高风险用户建议拒绝,年龄不符合");
             MyResult.CallBack(userid, orderid, new ResultW("100000", "查询成功", pp));
+            log.info("年龄不符合要求");
             return;
         }
         //=======================================================
@@ -247,6 +249,7 @@ public class MyServiceImpl implements IMyService {
             map5.put("level", "F");
             map5.put("recommend", "高风险的用户建拒绝");
             MyResult.CallBack(userid, orderid, new ResultW("100000", "查询成功了", map5));
+            log.info("手机号在黑名单中");
             return;
         }
         //==================================================================
@@ -256,6 +259,7 @@ public class MyServiceImpl implements IMyService {
          */
         if (pick == 1) {
             if (!StringUtils.isEmpty(address222)) {
+                log.info("和收货信息相关的参数是"+address222);
                 Map<String, String> tt = (Map<String, String>) JSONObject.parse(address222);
                 String place22 = tt.get("place");
                 HttpClient h1 = new HttpClient(riskUrl + "address");
@@ -276,6 +280,7 @@ public class MyServiceImpl implements IMyService {
                     map3.put("level", "F");
                     map3.put("recmmend", "高风险的用户建议拒绝");
                     MyResult.CallBack(userid, orderid, new ResultW("100000", "查询成功了", map3));
+                    log.info("收货地址在黑名单中");
                     return;
                 }
                 //===================================================
@@ -305,6 +310,7 @@ public class MyServiceImpl implements IMyService {
                     map9.put("level", "D");
                     map9.put("recommend", "高风险的用户,建议人工审核");
                     MyResult.CallBack(userid, orderid, new ResultW("100000", "查询成功了", map9));
+                    log.info("收货的手机号关联的身份证数量不唯一");
                     return;
                 }
                 //=========================================================================
@@ -320,6 +326,7 @@ public class MyServiceImpl implements IMyService {
                             map60.put("level", "D");
                             map60.put("recommend", "高风险的用户建议人工审核，收货手机号和本单的紧急联系人一致");
                             MyResult.CallBack(userid, orderid, new ResultW("100000", "查询成功了", map60));
+                            log.info("收货的手机号与本单的紧急联系人的手机号一致");
                             return;
                         }
                     }
@@ -333,6 +340,7 @@ public class MyServiceImpl implements IMyService {
                         map6.put("level", "D");
                         map6.put("recommend", "高风险的用户建议人工审核，注册手机号与收货手机号不一样");
                         MyResult.CallBack(userid, orderid, new ResultW("100000", "查询成功了", map6));
+                        log.info("注册手机号与收获手机号不一致");
                         return;
                     }
                 }
@@ -357,9 +365,11 @@ public class MyServiceImpl implements IMyService {
                     map10.put("level", "D");
                     map10.put("recommend", "高风险的用户,建议人工审核，收货地址关联的身份证的数量不唯一");
                     MyResult.CallBack(userid, orderid, new ResultW("100000", "查询成功了", map10));
+                    log.info("收货地址关联的身份证的号码不唯一");
                     return;
                 }
             }
+            log.info("紧急联系人的相关信息"+love.toJSONString());
             String s5 = Button.selectState("6");
             if (s5.equals("启用")) {
                 if (love.size() != 0) {
@@ -372,6 +382,7 @@ public class MyServiceImpl implements IMyService {
                             map7.put("level", "D");
                             map7.put("recommend", "高风险的用户建议人工审核，紧急联系人关联的身份证的数量不唯一");
                             MyResult.CallBack(userid, orderid, new ResultW("100000", "查询成功了", map7));
+                            log.info("紧急联系人关联的身份证的数量不唯一");
                             return;
                         }
                     }
@@ -421,6 +432,7 @@ public class MyServiceImpl implements IMyService {
                     pp1.put("code", "E");
                     pp1.put("recommend", "高风险用户建议拒绝，通讯录中联系人较少");
                     MyResult.CallBack(userid, orderid, new ResultW("100000", "查询成功", pp1));
+                    log.info("通讯录中联系人较少");
                     return;
                 }
             }
@@ -446,6 +458,7 @@ public class MyServiceImpl implements IMyService {
                             qw.put("code", "E");
                             qw.put("recommend", "高风险用户建议拒绝，紧急联系人没有在通讯录中");
                             MyResult.CallBack(userid, orderid, new ResultW("100000", "查询成功了", qw));
+                            log.info("紧急联系人没有在通讯录中");
                             return;
                         }
                         count = 0;
@@ -474,6 +487,7 @@ public class MyServiceImpl implements IMyService {
                     qw.put("code", "E");
                     qw.put("recommend", "高风险用户建议拒绝，敏感联系人过多");
                     MyResult.CallBack(userid, orderid, new ResultW("100000", "查询成功了", qw));
+                    log.info("敏感联系人过多");
                     return;
                 }
             }
@@ -499,6 +513,7 @@ public class MyServiceImpl implements IMyService {
                     qw.put("code", "E");
                     qw.put("recommend", "高风险用户建议拒绝，通讯录中亲属联系人没有");
                     MyResult.CallBack(userid, orderid, new ResultW("100000", "查询成功了", qw));
+                    log.info("通讯录中亲属联系人没有");
                     return;
                 }
             }
@@ -514,6 +529,7 @@ public class MyServiceImpl implements IMyService {
                 map99.put("level", "E");
                 map99.put("recommend", "高风险的用户建议拒绝，芝麻分小于600");
                 MyResult.CallBack(userid, orderid, new ResultW("100000", "查询成功了", map99));
+                log.info("芝麻分小于600");
                 return;
             }
         } else {
@@ -528,6 +544,7 @@ public class MyServiceImpl implements IMyService {
                         map99.put("level", "E");
                         map99.put("recommend", "高风险的用户建议拒绝，芝麻分小于600");
                         MyResult.CallBack(userid, orderid, new ResultW("100000", "查询成功了", map99));
+                        log.info("芝麻分小于600");
                         return;
                     }
                 }
