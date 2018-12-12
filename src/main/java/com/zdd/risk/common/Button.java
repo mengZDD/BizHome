@@ -13,12 +13,9 @@ import java.util.Map;
  */
 public class Button {
 
-
-    @Value("${riskUrl}")
-    private static String riskUrl;
     public static String selectState(String i)  {
         Map<String,String> map=new HashMap<>();
-        HttpClient h=new HttpClient(riskUrl+"button");
+        HttpClient h=new HttpClient("http://localhost:8082/button");
         map.put("i",i);
         h.setHttps(true);
         h.setParameter(map);
