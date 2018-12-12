@@ -39,7 +39,7 @@ public class Task {
     @Value("${riskUrl}")
     private String riskUrl;
 
-    @Scheduled(cron = "0 0/10 * * * ?")
+    @Scheduled(cron = "0 0 10 * * ?")
     public void addBlack() throws Exception {
 //
         //往黑名单里定时添加数据

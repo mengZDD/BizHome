@@ -594,11 +594,9 @@ public class MyServiceImpl implements IMyService {
                 return;
             }
         }
-
         Map<String, String> map521 = new HashMap<>();
         map521.put("level", "A");
         map521.put("recommend", "低风险用户");
         MyResult.CallBack(userid, orderid, new ResultW("100000", "查询成功了", map521));
-
     }
 }
