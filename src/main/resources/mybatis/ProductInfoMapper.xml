@@ -1,0 +1,552 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zdd.risk.dao.ProductInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.zdd.risk.bean.ProductInfo" >
+    <id column="productid" property="productid" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="TINYINT" />
+    <result column="brand" property="brand" jdbcType="VARCHAR" />
+    <result column="model" property="model" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="cover" property="cover" jdbcType="VARCHAR" />
+    <result column="cover_web" property="coverWeb" jdbcType="VARCHAR" />
+    <result column="brief" property="brief" jdbcType="VARCHAR" />
+    <result column="market" property="market" jdbcType="INTEGER" />
+    <result column="month_cost" property="monthCost" jdbcType="INTEGER" />
+    <result column="fineness" property="fineness" jdbcType="TINYINT" />
+    <result column="sales" property="sales" jdbcType="INTEGER" />
+    <result column="priceid" property="priceid" jdbcType="INTEGER" />
+    <result column="insuranceid" property="insuranceid" jdbcType="INTEGER" />
+    <result column="insurance_type" property="insuranceType" jdbcType="TINYINT" />
+    <result column="orderno" property="orderno" jdbcType="BIGINT" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="ymdhms0" property="ymdhms0" jdbcType="VARCHAR" />
+    <result column="ymdhms1" property="ymdhms1" jdbcType="VARCHAR" />
+    <result column="ymdhms2" property="ymdhms2" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.zdd.risk.bean.ProductInfoWithBLOBs" extends="BaseResultMap" >
+    <result column="banners" property="banners" jdbcType="LONGVARCHAR" />
+    <result column="profiles" property="profiles" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    productid, type, brand, model, name, cover, cover_web, brief, market, month_cost, 
+    fineness, sales, priceid, insuranceid, insurance_type, orderno, status, ymdhms0, 
+    ymdhms1, ymdhms2
+  </sql>
+  <sql id="Blob_Column_List" >
+    banners, profiles
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.zdd.risk.bean.ProductInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from product_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zdd.risk.bean.ProductInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from product_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from product_info
+    where productid = #{productid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from product_info
+    where productid = #{productid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zdd.risk.bean.ProductInfoExample" >
+    delete from product_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zdd.risk.bean.ProductInfoWithBLOBs" >
+    insert into product_info (productid, type, brand, 
+      model, name, cover, 
+      cover_web, brief, market, 
+      month_cost, fineness, sales, 
+      priceid, insuranceid, insurance_type, 
+      orderno, status, ymdhms0, 
+      ymdhms1, ymdhms2, banners, 
+      profiles)
+    values (#{productid,jdbcType=INTEGER}, #{type,jdbcType=TINYINT}, #{brand,jdbcType=VARCHAR}, 
+      #{model,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{cover,jdbcType=VARCHAR}, 
+      #{coverWeb,jdbcType=VARCHAR}, #{brief,jdbcType=VARCHAR}, #{market,jdbcType=INTEGER}, 
+      #{monthCost,jdbcType=INTEGER}, #{fineness,jdbcType=TINYINT}, #{sales,jdbcType=INTEGER}, 
+      #{priceid,jdbcType=INTEGER}, #{insuranceid,jdbcType=INTEGER}, #{insuranceType,jdbcType=TINYINT}, 
+      #{orderno,jdbcType=BIGINT}, #{status,jdbcType=TINYINT}, #{ymdhms0,jdbcType=VARCHAR}, 
+      #{ymdhms1,jdbcType=VARCHAR}, #{ymdhms2,jdbcType=VARCHAR}, #{banners,jdbcType=LONGVARCHAR}, 
+      #{profiles,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zdd.risk.bean.ProductInfoWithBLOBs" >
+    insert into product_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="productid != null" >
+        productid,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="brand != null" >
+        brand,
+      </if>
+      <if test="model != null" >
+        model,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="cover != null" >
+        cover,
+      </if>
+      <if test="coverWeb != null" >
+        cover_web,
+      </if>
+      <if test="brief != null" >
+        brief,
+      </if>
+      <if test="market != null" >
+        market,
+      </if>
+      <if test="monthCost != null" >
+        month_cost,
+      </if>
+      <if test="fineness != null" >
+        fineness,
+      </if>
+      <if test="sales != null" >
+        sales,
+      </if>
+      <if test="priceid != null" >
+        priceid,
+      </if>
+      <if test="insuranceid != null" >
+        insuranceid,
+      </if>
+      <if test="insuranceType != null" >
+        insurance_type,
+      </if>
+      <if test="orderno != null" >
+        orderno,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="ymdhms0 != null" >
+        ymdhms0,
+      </if>
+      <if test="ymdhms1 != null" >
+        ymdhms1,
+      </if>
+      <if test="ymdhms2 != null" >
+        ymdhms2,
+      </if>
+      <if test="banners != null" >
+        banners,
+      </if>
+      <if test="profiles != null" >
+        profiles,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="productid != null" >
+        #{productid,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=TINYINT},
+      </if>
+      <if test="brand != null" >
+        #{brand,jdbcType=VARCHAR},
+      </if>
+      <if test="model != null" >
+        #{model,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="cover != null" >
+        #{cover,jdbcType=VARCHAR},
+      </if>
+      <if test="coverWeb != null" >
+        #{coverWeb,jdbcType=VARCHAR},
+      </if>
+      <if test="brief != null" >
+        #{brief,jdbcType=VARCHAR},
+      </if>
+      <if test="market != null" >
+        #{market,jdbcType=INTEGER},
+      </if>
+      <if test="monthCost != null" >
+        #{monthCost,jdbcType=INTEGER},
+      </if>
+      <if test="fineness != null" >
+        #{fineness,jdbcType=TINYINT},
+      </if>
+      <if test="sales != null" >
+        #{sales,jdbcType=INTEGER},
+      </if>
+      <if test="priceid != null" >
+        #{priceid,jdbcType=INTEGER},
+      </if>
+      <if test="insuranceid != null" >
+        #{insuranceid,jdbcType=INTEGER},
+      </if>
+      <if test="insuranceType != null" >
+        #{insuranceType,jdbcType=TINYINT},
+      </if>
+      <if test="orderno != null" >
+        #{orderno,jdbcType=BIGINT},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="ymdhms0 != null" >
+        #{ymdhms0,jdbcType=VARCHAR},
+      </if>
+      <if test="ymdhms1 != null" >
+        #{ymdhms1,jdbcType=VARCHAR},
+      </if>
+      <if test="ymdhms2 != null" >
+        #{ymdhms2,jdbcType=VARCHAR},
+      </if>
+      <if test="banners != null" >
+        #{banners,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="profiles != null" >
+        #{profiles,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zdd.risk.bean.ProductInfoExample" resultType="java.lang.Integer" >
+    select count(*) from product_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update product_info
+    <set >
+      <if test="record.productid != null" >
+        productid = #{record.productid,jdbcType=INTEGER},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=TINYINT},
+      </if>
+      <if test="record.brand != null" >
+        brand = #{record.brand,jdbcType=VARCHAR},
+      </if>
+      <if test="record.model != null" >
+        model = #{record.model,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cover != null" >
+        cover = #{record.cover,jdbcType=VARCHAR},
+      </if>
+      <if test="record.coverWeb != null" >
+        cover_web = #{record.coverWeb,jdbcType=VARCHAR},
+      </if>
+      <if test="record.brief != null" >
+        brief = #{record.brief,jdbcType=VARCHAR},
+      </if>
+      <if test="record.market != null" >
+        market = #{record.market,jdbcType=INTEGER},
+      </if>
+      <if test="record.monthCost != null" >
+        month_cost = #{record.monthCost,jdbcType=INTEGER},
+      </if>
+      <if test="record.fineness != null" >
+        fineness = #{record.fineness,jdbcType=TINYINT},
+      </if>
+      <if test="record.sales != null" >
+        sales = #{record.sales,jdbcType=INTEGER},
+      </if>
+      <if test="record.priceid != null" >
+        priceid = #{record.priceid,jdbcType=INTEGER},
+      </if>
+      <if test="record.insuranceid != null" >
+        insuranceid = #{record.insuranceid,jdbcType=INTEGER},
+      </if>
+      <if test="record.insuranceType != null" >
+        insurance_type = #{record.insuranceType,jdbcType=TINYINT},
+      </if>
+      <if test="record.orderno != null" >
+        orderno = #{record.orderno,jdbcType=BIGINT},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=TINYINT},
+      </if>
+      <if test="record.ymdhms0 != null" >
+        ymdhms0 = #{record.ymdhms0,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ymdhms1 != null" >
+        ymdhms1 = #{record.ymdhms1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ymdhms2 != null" >
+        ymdhms2 = #{record.ymdhms2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.banners != null" >
+        banners = #{record.banners,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.profiles != null" >
+        profiles = #{record.profiles,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update product_info
+    set productid = #{record.productid,jdbcType=INTEGER},
+      type = #{record.type,jdbcType=TINYINT},
+      brand = #{record.brand,jdbcType=VARCHAR},
+      model = #{record.model,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      cover = #{record.cover,jdbcType=VARCHAR},
+      cover_web = #{record.coverWeb,jdbcType=VARCHAR},
+      brief = #{record.brief,jdbcType=VARCHAR},
+      market = #{record.market,jdbcType=INTEGER},
+      month_cost = #{record.monthCost,jdbcType=INTEGER},
+      fineness = #{record.fineness,jdbcType=TINYINT},
+      sales = #{record.sales,jdbcType=INTEGER},
+      priceid = #{record.priceid,jdbcType=INTEGER},
+      insuranceid = #{record.insuranceid,jdbcType=INTEGER},
+      insurance_type = #{record.insuranceType,jdbcType=TINYINT},
+      orderno = #{record.orderno,jdbcType=BIGINT},
+      status = #{record.status,jdbcType=TINYINT},
+      ymdhms0 = #{record.ymdhms0,jdbcType=VARCHAR},
+      ymdhms1 = #{record.ymdhms1,jdbcType=VARCHAR},
+      ymdhms2 = #{record.ymdhms2,jdbcType=VARCHAR},
+      banners = #{record.banners,jdbcType=LONGVARCHAR},
+      profiles = #{record.profiles,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update product_info
+    set productid = #{record.productid,jdbcType=INTEGER},
+      type = #{record.type,jdbcType=TINYINT},
+      brand = #{record.brand,jdbcType=VARCHAR},
+      model = #{record.model,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      cover = #{record.cover,jdbcType=VARCHAR},
+      cover_web = #{record.coverWeb,jdbcType=VARCHAR},
+      brief = #{record.brief,jdbcType=VARCHAR},
+      market = #{record.market,jdbcType=INTEGER},
+      month_cost = #{record.monthCost,jdbcType=INTEGER},
+      fineness = #{record.fineness,jdbcType=TINYINT},
+      sales = #{record.sales,jdbcType=INTEGER},
+      priceid = #{record.priceid,jdbcType=INTEGER},
+      insuranceid = #{record.insuranceid,jdbcType=INTEGER},
+      insurance_type = #{record.insuranceType,jdbcType=TINYINT},
+      orderno = #{record.orderno,jdbcType=BIGINT},
+      status = #{record.status,jdbcType=TINYINT},
+      ymdhms0 = #{record.ymdhms0,jdbcType=VARCHAR},
+      ymdhms1 = #{record.ymdhms1,jdbcType=VARCHAR},
+      ymdhms2 = #{record.ymdhms2,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zdd.risk.bean.ProductInfoWithBLOBs" >
+    update product_info
+    <set >
+      <if test="type != null" >
+        type = #{type,jdbcType=TINYINT},
+      </if>
+      <if test="brand != null" >
+        brand = #{brand,jdbcType=VARCHAR},
+      </if>
+      <if test="model != null" >
+        model = #{model,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="cover != null" >
+        cover = #{cover,jdbcType=VARCHAR},
+      </if>
+      <if test="coverWeb != null" >
+        cover_web = #{coverWeb,jdbcType=VARCHAR},
+      </if>
+      <if test="brief != null" >
+        brief = #{brief,jdbcType=VARCHAR},
+      </if>
+      <if test="market != null" >
+        market = #{market,jdbcType=INTEGER},
+      </if>
+      <if test="monthCost != null" >
+        month_cost = #{monthCost,jdbcType=INTEGER},
+      </if>
+      <if test="fineness != null" >
+        fineness = #{fineness,jdbcType=TINYINT},
+      </if>
+      <if test="sales != null" >
+        sales = #{sales,jdbcType=INTEGER},
+      </if>
+      <if test="priceid != null" >
+        priceid = #{priceid,jdbcType=INTEGER},
+      </if>
+      <if test="insuranceid != null" >
+        insuranceid = #{insuranceid,jdbcType=INTEGER},
+      </if>
+      <if test="insuranceType != null" >
+        insurance_type = #{insuranceType,jdbcType=TINYINT},
+      </if>
+      <if test="orderno != null" >
+        orderno = #{orderno,jdbcType=BIGINT},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="ymdhms0 != null" >
+        ymdhms0 = #{ymdhms0,jdbcType=VARCHAR},
+      </if>
+      <if test="ymdhms1 != null" >
+        ymdhms1 = #{ymdhms1,jdbcType=VARCHAR},
+      </if>
+      <if test="ymdhms2 != null" >
+        ymdhms2 = #{ymdhms2,jdbcType=VARCHAR},
+      </if>
+      <if test="banners != null" >
+        banners = #{banners,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="profiles != null" >
+        profiles = #{profiles,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where productid = #{productid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zdd.risk.bean.ProductInfoWithBLOBs" >
+    update product_info
+    set type = #{type,jdbcType=TINYINT},
+      brand = #{brand,jdbcType=VARCHAR},
+      model = #{model,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      cover = #{cover,jdbcType=VARCHAR},
+      cover_web = #{coverWeb,jdbcType=VARCHAR},
+      brief = #{brief,jdbcType=VARCHAR},
+      market = #{market,jdbcType=INTEGER},
+      month_cost = #{monthCost,jdbcType=INTEGER},
+      fineness = #{fineness,jdbcType=TINYINT},
+      sales = #{sales,jdbcType=INTEGER},
+      priceid = #{priceid,jdbcType=INTEGER},
+      insuranceid = #{insuranceid,jdbcType=INTEGER},
+      insurance_type = #{insuranceType,jdbcType=TINYINT},
+      orderno = #{orderno,jdbcType=BIGINT},
+      status = #{status,jdbcType=TINYINT},
+      ymdhms0 = #{ymdhms0,jdbcType=VARCHAR},
+      ymdhms1 = #{ymdhms1,jdbcType=VARCHAR},
+      ymdhms2 = #{ymdhms2,jdbcType=VARCHAR},
+      banners = #{banners,jdbcType=LONGVARCHAR},
+      profiles = #{profiles,jdbcType=LONGVARCHAR}
+    where productid = #{productid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zdd.risk.bean.ProductInfo" >
+    update product_info
+    set type = #{type,jdbcType=TINYINT},
+      brand = #{brand,jdbcType=VARCHAR},
+      model = #{model,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      cover = #{cover,jdbcType=VARCHAR},
+      cover_web = #{coverWeb,jdbcType=VARCHAR},
+      brief = #{brief,jdbcType=VARCHAR},
+      market = #{market,jdbcType=INTEGER},
+      month_cost = #{monthCost,jdbcType=INTEGER},
+      fineness = #{fineness,jdbcType=TINYINT},
+      sales = #{sales,jdbcType=INTEGER},
+      priceid = #{priceid,jdbcType=INTEGER},
+      insuranceid = #{insuranceid,jdbcType=INTEGER},
+      insurance_type = #{insuranceType,jdbcType=TINYINT},
+      orderno = #{orderno,jdbcType=BIGINT},
+      status = #{status,jdbcType=TINYINT},
+      ymdhms0 = #{ymdhms0,jdbcType=VARCHAR},
+      ymdhms1 = #{ymdhms1,jdbcType=VARCHAR},
+      ymdhms2 = #{ymdhms2,jdbcType=VARCHAR}
+    where productid = #{productid,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zdd.risk.dao.AccountAlipayMapper" >
+  <resultMap id="BaseResultMap" type="com.zdd.risk.bean.AccountAlipay" >
+    <id column="oauthuid" property="oauthuid" jdbcType="VARCHAR" />
+    <result column="userid" property="userid" jdbcType="VARCHAR" />
+    <result column="userid2" property="userid2" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="ymd" property="ymd" jdbcType="VARCHAR" />
+    <result column="regtime" property="regtime" jdbcType="VARCHAR" />
+    <result column="auth_token" property="authToken" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.zdd.risk.bean.AccountAlipay" extends="BaseResultMap" >
+    <result column="userinfo" property="userinfo" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    oauthuid, userid, userid2, status, ymd, regtime, auth_token
+  </sql>
+  <sql id="Blob_Column_List" >
+    userinfo
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.zdd.risk.bean.AccountAlipayExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from account_alipay
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zdd.risk.bean.AccountAlipayExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from account_alipay
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from account_alipay
+    where oauthuid = #{oauthuid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from account_alipay
+    where oauthuid = #{oauthuid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zdd.risk.bean.AccountAlipayExample" >
+    delete from account_alipay
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zdd.risk.bean.AccountAlipay" >
+    insert into account_alipay (oauthuid, userid, userid2, 
+      status, ymd, regtime, 
+      auth_token, userinfo)
+    values (#{oauthuid,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, #{userid2,jdbcType=VARCHAR}, 
+      #{status,jdbcType=TINYINT}, #{ymd,jdbcType=VARCHAR}, #{regtime,jdbcType=VARCHAR}, 
+      #{authToken,jdbcType=VARCHAR}, #{userinfo,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zdd.risk.bean.AccountAlipay" >
+    insert into account_alipay
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="oauthuid != null" >
+        oauthuid,
+      </if>
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="userid2 != null" >
+        userid2,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="ymd != null" >
+        ymd,
+      </if>
+      <if test="regtime != null" >
+        regtime,
+      </if>
+      <if test="authToken != null" >
+        auth_token,
+      </if>
+      <if test="userinfo != null" >
+        userinfo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="oauthuid != null" >
+        #{oauthuid,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="userid2 != null" >
+        #{userid2,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="ymd != null" >
+        #{ymd,jdbcType=VARCHAR},
+      </if>
+      <if test="regtime != null" >
+        #{regtime,jdbcType=VARCHAR},
+      </if>
+      <if test="authToken != null" >
+        #{authToken,jdbcType=VARCHAR},
+      </if>
+      <if test="userinfo != null" >
+        #{userinfo,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zdd.risk.bean.AccountAlipayExample" resultType="java.lang.Integer" >
+    select count(*) from account_alipay
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update account_alipay
+    <set >
+      <if test="record.oauthuid != null" >
+        oauthuid = #{record.oauthuid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userid != null" >
+        userid = #{record.userid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userid2 != null" >
+        userid2 = #{record.userid2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=TINYINT},
+      </if>
+      <if test="record.ymd != null" >
+        ymd = #{record.ymd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regtime != null" >
+        regtime = #{record.regtime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.authToken != null" >
+        auth_token = #{record.authToken,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userinfo != null" >
+        userinfo = #{record.userinfo,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update account_alipay
+    set oauthuid = #{record.oauthuid,jdbcType=VARCHAR},
+      userid = #{record.userid,jdbcType=VARCHAR},
+      userid2 = #{record.userid2,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=TINYINT},
+      ymd = #{record.ymd,jdbcType=VARCHAR},
+      regtime = #{record.regtime,jdbcType=VARCHAR},
+      auth_token = #{record.authToken,jdbcType=VARCHAR},
+      userinfo = #{record.userinfo,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update account_alipay
+    set oauthuid = #{record.oauthuid,jdbcType=VARCHAR},
+      userid = #{record.userid,jdbcType=VARCHAR},
+      userid2 = #{record.userid2,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=TINYINT},
+      ymd = #{record.ymd,jdbcType=VARCHAR},
+      regtime = #{record.regtime,jdbcType=VARCHAR},
+      auth_token = #{record.authToken,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zdd.risk.bean.AccountAlipay" >
+    update account_alipay
+    <set >
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="userid2 != null" >
+        userid2 = #{userid2,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="ymd != null" >
+        ymd = #{ymd,jdbcType=VARCHAR},
+      </if>
+      <if test="regtime != null" >
+        regtime = #{regtime,jdbcType=VARCHAR},
+      </if>
+      <if test="authToken != null" >
+        auth_token = #{authToken,jdbcType=VARCHAR},
+      </if>
+      <if test="userinfo != null" >
+        userinfo = #{userinfo,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where oauthuid = #{oauthuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zdd.risk.bean.AccountAlipay" >
+    update account_alipay
+    set userid = #{userid,jdbcType=VARCHAR},
+      userid2 = #{userid2,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      ymd = #{ymd,jdbcType=VARCHAR},
+      regtime = #{regtime,jdbcType=VARCHAR},
+      auth_token = #{authToken,jdbcType=VARCHAR},
+      userinfo = #{userinfo,jdbcType=LONGVARCHAR}
+    where oauthuid = #{oauthuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zdd.risk.bean.AccountAlipay" >
+    update account_alipay
+    set userid = #{userid,jdbcType=VARCHAR},
+      userid2 = #{userid2,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      ymd = #{ymd,jdbcType=VARCHAR},
+      regtime = #{regtime,jdbcType=VARCHAR},
+      auth_token = #{authToken,jdbcType=VARCHAR}
+    where oauthuid = #{oauthuid,jdbcType=VARCHAR}
+  </update>
+</mapper>

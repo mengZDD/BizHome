@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zdd.risk.dao.AccountPlatformMapper" >
+  <resultMap id="BaseResultMap" type="com.zdd.risk.bean.AccountPlatform" >
+    <id column="userid" property="userid" jdbcType="CHAR" />
+    <result column="userid1" property="userid1" jdbcType="VARCHAR" />
+    <result column="userid2" property="userid2" jdbcType="VARCHAR" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="oauthuid1" property="oauthuid1" jdbcType="VARCHAR" />
+    <result column="oauthuid2" property="oauthuid2" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="TINYINT" />
+    <result column="workid" property="workid" jdbcType="INTEGER" />
+    <result column="channel" property="channel" jdbcType="VARCHAR" />
+    <result column="come_from" property="comeFrom" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="ymd" property="ymd" jdbcType="VARCHAR" />
+    <result column="regtime" property="regtime" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    userid, userid1, userid2, username, password, oauthuid1, oauthuid2, type, workid, 
+    channel, come_from, status, ymd, regtime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zdd.risk.bean.AccountPlatformExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from account_platform
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from account_platform
+    where userid = #{userid,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from account_platform
+    where userid = #{userid,jdbcType=CHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zdd.risk.bean.AccountPlatformExample" >
+    delete from account_platform
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zdd.risk.bean.AccountPlatform" >
+    insert into account_platform (userid, userid1, userid2, 
+      username, password, oauthuid1, 
+      oauthuid2, type, workid, 
+      channel, come_from, status, 
+      ymd, regtime)
+    values (#{userid,jdbcType=CHAR}, #{userid1,jdbcType=VARCHAR}, #{userid2,jdbcType=VARCHAR}, 
+      #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{oauthuid1,jdbcType=VARCHAR}, 
+      #{oauthuid2,jdbcType=VARCHAR}, #{type,jdbcType=TINYINT}, #{workid,jdbcType=INTEGER}, 
+      #{channel,jdbcType=VARCHAR}, #{comeFrom,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, 
+      #{ymd,jdbcType=VARCHAR}, #{regtime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zdd.risk.bean.AccountPlatform" >
+    insert into account_platform
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="userid1 != null" >
+        userid1,
+      </if>
+      <if test="userid2 != null" >
+        userid2,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="oauthuid1 != null" >
+        oauthuid1,
+      </if>
+      <if test="oauthuid2 != null" >
+        oauthuid2,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="workid != null" >
+        workid,
+      </if>
+      <if test="channel != null" >
+        channel,
+      </if>
+      <if test="comeFrom != null" >
+        come_from,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="ymd != null" >
+        ymd,
+      </if>
+      <if test="regtime != null" >
+        regtime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        #{userid,jdbcType=CHAR},
+      </if>
+      <if test="userid1 != null" >
+        #{userid1,jdbcType=VARCHAR},
+      </if>
+      <if test="userid2 != null" >
+        #{userid2,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="oauthuid1 != null" >
+        #{oauthuid1,jdbcType=VARCHAR},
+      </if>
+      <if test="oauthuid2 != null" >
+        #{oauthuid2,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=TINYINT},
+      </if>
+      <if test="workid != null" >
+        #{workid,jdbcType=INTEGER},
+      </if>
+      <if test="channel != null" >
+        #{channel,jdbcType=VARCHAR},
+      </if>
+      <if test="comeFrom != null" >
+        #{comeFrom,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="ymd != null" >
+        #{ymd,jdbcType=VARCHAR},
+      </if>
+      <if test="regtime != null" >
+        #{regtime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zdd.risk.bean.AccountPlatformExample" resultType="java.lang.Integer" >
+    select count(*) from account_platform
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update account_platform
+    <set >
+      <if test="record.userid != null" >
+        userid = #{record.userid,jdbcType=CHAR},
+      </if>
+      <if test="record.userid1 != null" >
+        userid1 = #{record.userid1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userid2 != null" >
+        userid2 = #{record.userid2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.username != null" >
+        username = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null" >
+        password = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.oauthuid1 != null" >
+        oauthuid1 = #{record.oauthuid1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.oauthuid2 != null" >
+        oauthuid2 = #{record.oauthuid2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=TINYINT},
+      </if>
+      <if test="record.workid != null" >
+        workid = #{record.workid,jdbcType=INTEGER},
+      </if>
+      <if test="record.channel != null" >
+        channel = #{record.channel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.comeFrom != null" >
+        come_from = #{record.comeFrom,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=TINYINT},
+      </if>
+      <if test="record.ymd != null" >
+        ymd = #{record.ymd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regtime != null" >
+        regtime = #{record.regtime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update account_platform
+    set userid = #{record.userid,jdbcType=CHAR},
+      userid1 = #{record.userid1,jdbcType=VARCHAR},
+      userid2 = #{record.userid2,jdbcType=VARCHAR},
+      username = #{record.username,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR},
+      oauthuid1 = #{record.oauthuid1,jdbcType=VARCHAR},
+      oauthuid2 = #{record.oauthuid2,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=TINYINT},
+      workid = #{record.workid,jdbcType=INTEGER},
+      channel = #{record.channel,jdbcType=VARCHAR},
+      come_from = #{record.comeFrom,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=TINYINT},
+      ymd = #{record.ymd,jdbcType=VARCHAR},
+      regtime = #{record.regtime,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zdd.risk.bean.AccountPlatform" >
+    update account_platform
+    <set >
+      <if test="userid1 != null" >
+        userid1 = #{userid1,jdbcType=VARCHAR},
+      </if>
+      <if test="userid2 != null" >
+        userid2 = #{userid2,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="oauthuid1 != null" >
+        oauthuid1 = #{oauthuid1,jdbcType=VARCHAR},
+      </if>
+      <if test="oauthuid2 != null" >
+        oauthuid2 = #{oauthuid2,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=TINYINT},
+      </if>
+      <if test="workid != null" >
+        workid = #{workid,jdbcType=INTEGER},
+      </if>
+      <if test="channel != null" >
+        channel = #{channel,jdbcType=VARCHAR},
+      </if>
+      <if test="comeFrom != null" >
+        come_from = #{comeFrom,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="ymd != null" >
+        ymd = #{ymd,jdbcType=VARCHAR},
+      </if>
+      <if test="regtime != null" >
+        regtime = #{regtime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where userid = #{userid,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zdd.risk.bean.AccountPlatform" >
+    update account_platform
+    set userid1 = #{userid1,jdbcType=VARCHAR},
+      userid2 = #{userid2,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      oauthuid1 = #{oauthuid1,jdbcType=VARCHAR},
+      oauthuid2 = #{oauthuid2,jdbcType=VARCHAR},
+      type = #{type,jdbcType=TINYINT},
+      workid = #{workid,jdbcType=INTEGER},
+      channel = #{channel,jdbcType=VARCHAR},
+      come_from = #{comeFrom,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      ymd = #{ymd,jdbcType=VARCHAR},
+      regtime = #{regtime,jdbcType=VARCHAR}
+    where userid = #{userid,jdbcType=CHAR}
+  </update>
+</mapper>

@@ -1,0 +1,513 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zdd.risk.dao.OrderPaymentMapper" >
+  <resultMap id="BaseResultMap" type="com.zdd.risk.bean.OrderPayment" >
+    <id column="seqid" property="seqid" jdbcType="INTEGER" />
+    <result column="orderid" property="orderid" jdbcType="VARCHAR" />
+    <result column="periods" property="periods" jdbcType="TINYINT" />
+    <result column="period_num" property="periodNum" jdbcType="TINYINT" />
+    <result column="cost" property="cost" jdbcType="INTEGER" />
+    <result column="repayment" property="repayment" jdbcType="TINYINT" />
+    <result column="zm_orderid" property="zmOrderid" jdbcType="VARCHAR" />
+    <result column="transactionid" property="transactionid" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="ymd" property="ymd" jdbcType="VARCHAR" />
+    <result column="next_ymd" property="nextYmd" jdbcType="VARCHAR" />
+    <result column="instalment_time" property="instalmentTime" jdbcType="VARCHAR" />
+    <result column="ymdhms" property="ymdhms" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.zdd.risk.bean.OrderPayment" extends="BaseResultMap" >
+    <result column="remark" property="remark" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    seqid, orderid, periods, period_num, cost, repayment, zm_orderid, transactionid, 
+    status, ymd, next_ymd, instalment_time, ymdhms
+  </sql>
+  <sql id="Blob_Column_List" >
+    remark
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.zdd.risk.bean.OrderPaymentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from order_payment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zdd.risk.bean.OrderPaymentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from order_payment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from order_payment
+    where seqid = #{seqid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from order_payment
+    where seqid = #{seqid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zdd.risk.bean.OrderPaymentExample" >
+    delete from order_payment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zdd.risk.bean.OrderPayment" >
+    insert into order_payment (seqid, orderid, periods, 
+      period_num, cost, repayment, 
+      zm_orderid, transactionid, status, 
+      ymd, next_ymd, instalment_time, 
+      ymdhms, remark)
+    values (#{seqid,jdbcType=INTEGER}, #{orderid,jdbcType=VARCHAR}, #{periods,jdbcType=TINYINT}, 
+      #{periodNum,jdbcType=TINYINT}, #{cost,jdbcType=INTEGER}, #{repayment,jdbcType=TINYINT}, 
+      #{zmOrderid,jdbcType=VARCHAR}, #{transactionid,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, 
+      #{ymd,jdbcType=VARCHAR}, #{nextYmd,jdbcType=VARCHAR}, #{instalmentTime,jdbcType=VARCHAR}, 
+      #{ymdhms,jdbcType=VARCHAR}, #{remark,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zdd.risk.bean.OrderPayment" >
+    insert into order_payment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="seqid != null" >
+        seqid,
+      </if>
+      <if test="orderid != null" >
+        orderid,
+      </if>
+      <if test="periods != null" >
+        periods,
+      </if>
+      <if test="periodNum != null" >
+        period_num,
+      </if>
+      <if test="cost != null" >
+        cost,
+      </if>
+      <if test="repayment != null" >
+        repayment,
+      </if>
+      <if test="zmOrderid != null" >
+        zm_orderid,
+      </if>
+      <if test="transactionid != null" >
+        transactionid,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="ymd != null" >
+        ymd,
+      </if>
+      <if test="nextYmd != null" >
+        next_ymd,
+      </if>
+      <if test="instalmentTime != null" >
+        instalment_time,
+      </if>
+      <if test="ymdhms != null" >
+        ymdhms,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="seqid != null" >
+        #{seqid,jdbcType=INTEGER},
+      </if>
+      <if test="orderid != null" >
+        #{orderid,jdbcType=VARCHAR},
+      </if>
+      <if test="periods != null" >
+        #{periods,jdbcType=TINYINT},
+      </if>
+      <if test="periodNum != null" >
+        #{periodNum,jdbcType=TINYINT},
+      </if>
+      <if test="cost != null" >
+        #{cost,jdbcType=INTEGER},
+      </if>
+      <if test="repayment != null" >
+        #{repayment,jdbcType=TINYINT},
+      </if>
+      <if test="zmOrderid != null" >
+        #{zmOrderid,jdbcType=VARCHAR},
+      </if>
+      <if test="transactionid != null" >
+        #{transactionid,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="ymd != null" >
+        #{ymd,jdbcType=VARCHAR},
+      </if>
+      <if test="nextYmd != null" >
+        #{nextYmd,jdbcType=VARCHAR},
+      </if>
+      <if test="instalmentTime != null" >
+        #{instalmentTime,jdbcType=VARCHAR},
+      </if>
+      <if test="ymdhms != null" >
+        #{ymdhms,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zdd.risk.bean.OrderPaymentExample" resultType="java.lang.Integer" >
+    select count(*) from order_payment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update order_payment
+    <set >
+      <if test="record.seqid != null" >
+        seqid = #{record.seqid,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderid != null" >
+        orderid = #{record.orderid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.periods != null" >
+        periods = #{record.periods,jdbcType=TINYINT},
+      </if>
+      <if test="record.periodNum != null" >
+        period_num = #{record.periodNum,jdbcType=TINYINT},
+      </if>
+      <if test="record.cost != null" >
+        cost = #{record.cost,jdbcType=INTEGER},
+      </if>
+      <if test="record.repayment != null" >
+        repayment = #{record.repayment,jdbcType=TINYINT},
+      </if>
+      <if test="record.zmOrderid != null" >
+        zm_orderid = #{record.zmOrderid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transactionid != null" >
+        transactionid = #{record.transactionid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=TINYINT},
+      </if>
+      <if test="record.ymd != null" >
+        ymd = #{record.ymd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nextYmd != null" >
+        next_ymd = #{record.nextYmd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.instalmentTime != null" >
+        instalment_time = #{record.instalmentTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ymdhms != null" >
+        ymdhms = #{record.ymdhms,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update order_payment
+    set seqid = #{record.seqid,jdbcType=INTEGER},
+      orderid = #{record.orderid,jdbcType=VARCHAR},
+      periods = #{record.periods,jdbcType=TINYINT},
+      period_num = #{record.periodNum,jdbcType=TINYINT},
+      cost = #{record.cost,jdbcType=INTEGER},
+      repayment = #{record.repayment,jdbcType=TINYINT},
+      zm_orderid = #{record.zmOrderid,jdbcType=VARCHAR},
+      transactionid = #{record.transactionid,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=TINYINT},
+      ymd = #{record.ymd,jdbcType=VARCHAR},
+      next_ymd = #{record.nextYmd,jdbcType=VARCHAR},
+      instalment_time = #{record.instalmentTime,jdbcType=VARCHAR},
+      ymdhms = #{record.ymdhms,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update order_payment
+    set seqid = #{record.seqid,jdbcType=INTEGER},
+      orderid = #{record.orderid,jdbcType=VARCHAR},
+      periods = #{record.periods,jdbcType=TINYINT},
+      period_num = #{record.periodNum,jdbcType=TINYINT},
+      cost = #{record.cost,jdbcType=INTEGER},
+      repayment = #{record.repayment,jdbcType=TINYINT},
+      zm_orderid = #{record.zmOrderid,jdbcType=VARCHAR},
+      transactionid = #{record.transactionid,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=TINYINT},
+      ymd = #{record.ymd,jdbcType=VARCHAR},
+      next_ymd = #{record.nextYmd,jdbcType=VARCHAR},
+      instalment_time = #{record.instalmentTime,jdbcType=VARCHAR},
+      ymdhms = #{record.ymdhms,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zdd.risk.bean.OrderPayment" >
+    update order_payment
+    <set >
+      <if test="orderid != null" >
+        orderid = #{orderid,jdbcType=VARCHAR},
+      </if>
+      <if test="periods != null" >
+        periods = #{periods,jdbcType=TINYINT},
+      </if>
+      <if test="periodNum != null" >
+        period_num = #{periodNum,jdbcType=TINYINT},
+      </if>
+      <if test="cost != null" >
+        cost = #{cost,jdbcType=INTEGER},
+      </if>
+      <if test="repayment != null" >
+        repayment = #{repayment,jdbcType=TINYINT},
+      </if>
+      <if test="zmOrderid != null" >
+        zm_orderid = #{zmOrderid,jdbcType=VARCHAR},
+      </if>
+      <if test="transactionid != null" >
+        transactionid = #{transactionid,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="ymd != null" >
+        ymd = #{ymd,jdbcType=VARCHAR},
+      </if>
+      <if test="nextYmd != null" >
+        next_ymd = #{nextYmd,jdbcType=VARCHAR},
+      </if>
+      <if test="instalmentTime != null" >
+        instalment_time = #{instalmentTime,jdbcType=VARCHAR},
+      </if>
+      <if test="ymdhms != null" >
+        ymdhms = #{ymdhms,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where seqid = #{seqid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zdd.risk.bean.OrderPayment" >
+    update order_payment
+    set orderid = #{orderid,jdbcType=VARCHAR},
+      periods = #{periods,jdbcType=TINYINT},
+      period_num = #{periodNum,jdbcType=TINYINT},
+      cost = #{cost,jdbcType=INTEGER},
+      repayment = #{repayment,jdbcType=TINYINT},
+      zm_orderid = #{zmOrderid,jdbcType=VARCHAR},
+      transactionid = #{transactionid,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      ymd = #{ymd,jdbcType=VARCHAR},
+      next_ymd = #{nextYmd,jdbcType=VARCHAR},
+      instalment_time = #{instalmentTime,jdbcType=VARCHAR},
+      ymdhms = #{ymdhms,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=LONGVARCHAR}
+    where seqid = #{seqid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zdd.risk.bean.OrderPayment" >
+    update order_payment
+    set orderid = #{orderid,jdbcType=VARCHAR},
+      periods = #{periods,jdbcType=TINYINT},
+      period_num = #{periodNum,jdbcType=TINYINT},
+      cost = #{cost,jdbcType=INTEGER},
+      repayment = #{repayment,jdbcType=TINYINT},
+      zm_orderid = #{zmOrderid,jdbcType=VARCHAR},
+      transactionid = #{transactionid,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      ymd = #{ymd,jdbcType=VARCHAR},
+      next_ymd = #{nextYmd,jdbcType=VARCHAR},
+      instalment_time = #{instalmentTime,jdbcType=VARCHAR},
+      ymdhms = #{ymdhms,jdbcType=VARCHAR}
+    where seqid = #{seqid,jdbcType=INTEGER}
+  </update>
+  <select id="selectOutPeople"  resultType="com.zdd.risk.bean.OrderPayment">
+    ( SELECT
+    t.*
+    FROM
+    order_payment_1 t
+    WHERE
+    t.`status` = 0
+    AND NOW() > t.ymd
+    GROUP BY t.orderid
+    ORDER BY t.ymd )
+    UNION ALL
+    ( SELECT
+    t.*
+    FROM
+    order_payment_2 t
+    WHERE
+    t.`status` = 0
+    AND NOW() > t.ymd
+    GROUP BY t.orderid
+    ORDER BY t.ymd )
+    UNION ALL
+    ( SELECT
+    t.*
+    FROM
+    order_payment_3 t
+    WHERE
+    t.`status` = 0
+    AND NOW() > t.ymd
+    GROUP BY t.orderid
+    ORDER BY t.ymd )
+    UNION ALL
+    ( SELECT
+    t.*
+    FROM
+    order_payment_4 t
+    WHERE
+    t.`status` = 0
+    AND NOW() > t.ymd
+    GROUP BY t.orderid
+    ORDER BY t.ymd )
+    UNION ALL
+    ( SELECT
+    t.*
+    FROM
+    order_payment_5 t
+    WHERE
+    t.`status` = 0
+    AND NOW() > t.ymd
+    GROUP BY t.orderid
+    ORDER BY t.ymd )
+  </select>
+  <select id="selectByOrderId" parameterType="String" resultType="com.zdd.risk.bean.OrderPayment">
+    (
+	SELECT
+		t.*
+	FROM
+		order_payment_1 t
+	WHERE
+		t.`status` = 0 and t.orderid=#{orderId}
+	AND NOW() > t.ymd
+)
+UNION ALL
+	(
+		SELECT
+			t.*
+		FROM
+			order_payment_2 t
+		WHERE
+			t.`status` = 0 and t.orderid=#{orderId}
+		AND NOW() > t.ymd
+	)
+UNION ALL
+	(
+		SELECT
+			t.*
+		FROM
+			order_payment_3 t
+		WHERE
+			t.`status` = 0 and t.orderid=#{orderId}
+		AND NOW() > t.ymd
+	)
+UNION ALL
+	(
+		SELECT
+			t.*
+		FROM
+			order_payment_4 t
+		WHERE
+			t.`status` = 0 and t.orderid=#{orderId}
+		AND NOW() > t.ymd
+	)
+UNION ALL
+	(
+		SELECT
+			t.*
+		FROM
+			order_payment_5 t
+		WHERE
+			t.`status` = 0 and t.orderid=#{orderId}
+		AND NOW() > t.ymd
+	)
+  </select>
+</mapper>

@@ -1,0 +1,984 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zdd.risk.dao.OrderInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.zdd.risk.bean.OrderInfo" >
+    <id column="orderid" property="orderid" jdbcType="VARCHAR" />
+    <result column="userid" property="userid" jdbcType="VARCHAR" />
+    <result column="productid" property="productid" jdbcType="INTEGER" />
+    <result column="priceid" property="priceid" jdbcType="INTEGER" />
+    <result column="guarantee" property="guarantee" jdbcType="TINYINT" />
+    <result column="repayment" property="repayment" jdbcType="TINYINT" />
+    <result column="picktype" property="picktype" jdbcType="INTEGER" />
+    <result column="expressid" property="expressid" jdbcType="VARCHAR" />
+    <result column="storeid" property="storeid" jdbcType="INTEGER" />
+    <result column="shopid" property="shopid" jdbcType="INTEGER" />
+    <result column="workid" property="workid" jdbcType="INTEGER" />
+    <result column="company_type" property="companyType" jdbcType="VARCHAR" />
+    <result column="companyid" property="companyid" jdbcType="INTEGER" />
+    <result column="startdate" property="startdate" jdbcType="VARCHAR" />
+    <result column="enddate" property="enddate" jdbcType="VARCHAR" />
+    <result column="itemid" property="itemid" jdbcType="VARCHAR" />
+    <result column="insuranceid" property="insuranceid" jdbcType="INTEGER" />
+    <result column="activityid" property="activityid" jdbcType="INTEGER" />
+    <result column="couponid" property="couponid" jdbcType="INTEGER" />
+    <result column="discountid" property="discountid" jdbcType="VARCHAR" />
+    <result column="lease" property="lease" jdbcType="TINYINT" />
+    <result column="period_num" property="periodNum" jdbcType="TINYINT" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="end_type" property="endType" jdbcType="TINYINT" />
+    <result column="returns_type" property="returnsType" jdbcType="TINYINT" />
+    <result column="returns_status" property="returnsStatus" jdbcType="TINYINT" />
+    <result column="cash_type" property="cashType" jdbcType="TINYINT" />
+    <result column="cash_value" property="cashValue" jdbcType="INTEGER" />
+    <result column="cash_status" property="cashStatus" jdbcType="TINYINT" />
+    <result column="refund_status" property="refundStatus" jdbcType="TINYINT" />
+    <result column="source" property="source" jdbcType="TINYINT" />
+    <result column="come_from" property="comeFrom" jdbcType="VARCHAR" />
+    <result column="lock_date" property="lockDate" jdbcType="VARCHAR" />
+    <result column="ymdhms0" property="ymdhms0" jdbcType="VARCHAR" />
+    <result column="ymdhms1" property="ymdhms1" jdbcType="VARCHAR" />
+    <result column="ymdhms2" property="ymdhms2" jdbcType="VARCHAR" />
+    <result column="ymdhms3" property="ymdhms3" jdbcType="VARCHAR" />
+    <result column="ymdhms4" property="ymdhms4" jdbcType="VARCHAR" />
+    <result column="ymd0" property="ymd0" jdbcType="VARCHAR" />
+    <result column="ymd1" property="ymd1" jdbcType="VARCHAR" />
+    <result column="ymd2" property="ymd2" jdbcType="VARCHAR" />
+    <result column="ymd3" property="ymd3" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.zdd.risk.bean.OrderInfoWithBLOBs" extends="BaseResultMap" >
+    <result column="address" property="address" jdbcType="LONGVARCHAR" />
+    <result column="preauth_info" property="preauthInfo" jdbcType="LONGVARCHAR" />
+    <result column="price_info" property="priceInfo" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    orderid, userid, productid, priceid, guarantee, repayment, picktype, expressid, storeid, 
+    shopid, workid, company_type, companyid, startdate, enddate, itemid, insuranceid, 
+    activityid, couponid, discountid, lease, period_num, status, end_type, returns_type, 
+    returns_status, cash_type, cash_value, cash_status, refund_status, source, come_from, 
+    lock_date, ymdhms0, ymdhms1, ymdhms2, ymdhms3, ymdhms4, ymd0, ymd1, ymd2, ymd3
+  </sql>
+  <sql id="Blob_Column_List" >
+    address, preauth_info, price_info
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.zdd.risk.bean.OrderInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from order_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zdd.risk.bean.OrderInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from order_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from order_info
+    where orderid = #{orderid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from order_info
+    where orderid = #{orderid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zdd.risk.bean.OrderInfoExample" >
+    delete from order_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zdd.risk.bean.OrderInfoWithBLOBs" >
+    insert into order_info (orderid, userid, productid, 
+      priceid, guarantee, repayment, 
+      picktype, expressid, storeid, 
+      shopid, workid, company_type, 
+      companyid, startdate, enddate, 
+      itemid, insuranceid, activityid, 
+      couponid, discountid, lease, 
+      period_num, status, end_type, 
+      returns_type, returns_status, cash_type, 
+      cash_value, cash_status, refund_status, 
+      source, come_from, lock_date, 
+      ymdhms0, ymdhms1, ymdhms2, 
+      ymdhms3, ymdhms4, ymd0, 
+      ymd1, ymd2, ymd3, address, 
+      preauth_info, price_info)
+    values (#{orderid,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, #{productid,jdbcType=INTEGER}, 
+      #{priceid,jdbcType=INTEGER}, #{guarantee,jdbcType=TINYINT}, #{repayment,jdbcType=TINYINT}, 
+      #{picktype,jdbcType=INTEGER}, #{expressid,jdbcType=VARCHAR}, #{storeid,jdbcType=INTEGER}, 
+      #{shopid,jdbcType=INTEGER}, #{workid,jdbcType=INTEGER}, #{companyType,jdbcType=VARCHAR}, 
+      #{companyid,jdbcType=INTEGER}, #{startdate,jdbcType=VARCHAR}, #{enddate,jdbcType=VARCHAR}, 
+      #{itemid,jdbcType=VARCHAR}, #{insuranceid,jdbcType=INTEGER}, #{activityid,jdbcType=INTEGER}, 
+      #{couponid,jdbcType=INTEGER}, #{discountid,jdbcType=VARCHAR}, #{lease,jdbcType=TINYINT}, 
+      #{periodNum,jdbcType=TINYINT}, #{status,jdbcType=TINYINT}, #{endType,jdbcType=TINYINT}, 
+      #{returnsType,jdbcType=TINYINT}, #{returnsStatus,jdbcType=TINYINT}, #{cashType,jdbcType=TINYINT}, 
+      #{cashValue,jdbcType=INTEGER}, #{cashStatus,jdbcType=TINYINT}, #{refundStatus,jdbcType=TINYINT}, 
+      #{source,jdbcType=TINYINT}, #{comeFrom,jdbcType=VARCHAR}, #{lockDate,jdbcType=VARCHAR}, 
+      #{ymdhms0,jdbcType=VARCHAR}, #{ymdhms1,jdbcType=VARCHAR}, #{ymdhms2,jdbcType=VARCHAR}, 
+      #{ymdhms3,jdbcType=VARCHAR}, #{ymdhms4,jdbcType=VARCHAR}, #{ymd0,jdbcType=VARCHAR}, 
+      #{ymd1,jdbcType=VARCHAR}, #{ymd2,jdbcType=VARCHAR}, #{ymd3,jdbcType=VARCHAR}, #{address,jdbcType=LONGVARCHAR}, 
+      #{preauthInfo,jdbcType=LONGVARCHAR}, #{priceInfo,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zdd.risk.bean.OrderInfoWithBLOBs" >
+    insert into order_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderid != null" >
+        orderid,
+      </if>
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="productid != null" >
+        productid,
+      </if>
+      <if test="priceid != null" >
+        priceid,
+      </if>
+      <if test="guarantee != null" >
+        guarantee,
+      </if>
+      <if test="repayment != null" >
+        repayment,
+      </if>
+      <if test="picktype != null" >
+        picktype,
+      </if>
+      <if test="expressid != null" >
+        expressid,
+      </if>
+      <if test="storeid != null" >
+        storeid,
+      </if>
+      <if test="shopid != null" >
+        shopid,
+      </if>
+      <if test="workid != null" >
+        workid,
+      </if>
+      <if test="companyType != null" >
+        company_type,
+      </if>
+      <if test="companyid != null" >
+        companyid,
+      </if>
+      <if test="startdate != null" >
+        startdate,
+      </if>
+      <if test="enddate != null" >
+        enddate,
+      </if>
+      <if test="itemid != null" >
+        itemid,
+      </if>
+      <if test="insuranceid != null" >
+        insuranceid,
+      </if>
+      <if test="activityid != null" >
+        activityid,
+      </if>
+      <if test="couponid != null" >
+        couponid,
+      </if>
+      <if test="discountid != null" >
+        discountid,
+      </if>
+      <if test="lease != null" >
+        lease,
+      </if>
+      <if test="periodNum != null" >
+        period_num,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="endType != null" >
+        end_type,
+      </if>
+      <if test="returnsType != null" >
+        returns_type,
+      </if>
+      <if test="returnsStatus != null" >
+        returns_status,
+      </if>
+      <if test="cashType != null" >
+        cash_type,
+      </if>
+      <if test="cashValue != null" >
+        cash_value,
+      </if>
+      <if test="cashStatus != null" >
+        cash_status,
+      </if>
+      <if test="refundStatus != null" >
+        refund_status,
+      </if>
+      <if test="source != null" >
+        source,
+      </if>
+      <if test="comeFrom != null" >
+        come_from,
+      </if>
+      <if test="lockDate != null" >
+        lock_date,
+      </if>
+      <if test="ymdhms0 != null" >
+        ymdhms0,
+      </if>
+      <if test="ymdhms1 != null" >
+        ymdhms1,
+      </if>
+      <if test="ymdhms2 != null" >
+        ymdhms2,
+      </if>
+      <if test="ymdhms3 != null" >
+        ymdhms3,
+      </if>
+      <if test="ymdhms4 != null" >
+        ymdhms4,
+      </if>
+      <if test="ymd0 != null" >
+        ymd0,
+      </if>
+      <if test="ymd1 != null" >
+        ymd1,
+      </if>
+      <if test="ymd2 != null" >
+        ymd2,
+      </if>
+      <if test="ymd3 != null" >
+        ymd3,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="preauthInfo != null" >
+        preauth_info,
+      </if>
+      <if test="priceInfo != null" >
+        price_info,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderid != null" >
+        #{orderid,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="productid != null" >
+        #{productid,jdbcType=INTEGER},
+      </if>
+      <if test="priceid != null" >
+        #{priceid,jdbcType=INTEGER},
+      </if>
+      <if test="guarantee != null" >
+        #{guarantee,jdbcType=TINYINT},
+      </if>
+      <if test="repayment != null" >
+        #{repayment,jdbcType=TINYINT},
+      </if>
+      <if test="picktype != null" >
+        #{picktype,jdbcType=INTEGER},
+      </if>
+      <if test="expressid != null" >
+        #{expressid,jdbcType=VARCHAR},
+      </if>
+      <if test="storeid != null" >
+        #{storeid,jdbcType=INTEGER},
+      </if>
+      <if test="shopid != null" >
+        #{shopid,jdbcType=INTEGER},
+      </if>
+      <if test="workid != null" >
+        #{workid,jdbcType=INTEGER},
+      </if>
+      <if test="companyType != null" >
+        #{companyType,jdbcType=VARCHAR},
+      </if>
+      <if test="companyid != null" >
+        #{companyid,jdbcType=INTEGER},
+      </if>
+      <if test="startdate != null" >
+        #{startdate,jdbcType=VARCHAR},
+      </if>
+      <if test="enddate != null" >
+        #{enddate,jdbcType=VARCHAR},
+      </if>
+      <if test="itemid != null" >
+        #{itemid,jdbcType=VARCHAR},
+      </if>
+      <if test="insuranceid != null" >
+        #{insuranceid,jdbcType=INTEGER},
+      </if>
+      <if test="activityid != null" >
+        #{activityid,jdbcType=INTEGER},
+      </if>
+      <if test="couponid != null" >
+        #{couponid,jdbcType=INTEGER},
+      </if>
+      <if test="discountid != null" >
+        #{discountid,jdbcType=VARCHAR},
+      </if>
+      <if test="lease != null" >
+        #{lease,jdbcType=TINYINT},
+      </if>
+      <if test="periodNum != null" >
+        #{periodNum,jdbcType=TINYINT},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="endType != null" >
+        #{endType,jdbcType=TINYINT},
+      </if>
+      <if test="returnsType != null" >
+        #{returnsType,jdbcType=TINYINT},
+      </if>
+      <if test="returnsStatus != null" >
+        #{returnsStatus,jdbcType=TINYINT},
+      </if>
+      <if test="cashType != null" >
+        #{cashType,jdbcType=TINYINT},
+      </if>
+      <if test="cashValue != null" >
+        #{cashValue,jdbcType=INTEGER},
+      </if>
+      <if test="cashStatus != null" >
+        #{cashStatus,jdbcType=TINYINT},
+      </if>
+      <if test="refundStatus != null" >
+        #{refundStatus,jdbcType=TINYINT},
+      </if>
+      <if test="source != null" >
+        #{source,jdbcType=TINYINT},
+      </if>
+      <if test="comeFrom != null" >
+        #{comeFrom,jdbcType=VARCHAR},
+      </if>
+      <if test="lockDate != null" >
+        #{lockDate,jdbcType=VARCHAR},
+      </if>
+      <if test="ymdhms0 != null" >
+        #{ymdhms0,jdbcType=VARCHAR},
+      </if>
+      <if test="ymdhms1 != null" >
+        #{ymdhms1,jdbcType=VARCHAR},
+      </if>
+      <if test="ymdhms2 != null" >
+        #{ymdhms2,jdbcType=VARCHAR},
+      </if>
+      <if test="ymdhms3 != null" >
+        #{ymdhms3,jdbcType=VARCHAR},
+      </if>
+      <if test="ymdhms4 != null" >
+        #{ymdhms4,jdbcType=VARCHAR},
+      </if>
+      <if test="ymd0 != null" >
+        #{ymd0,jdbcType=VARCHAR},
+      </if>
+      <if test="ymd1 != null" >
+        #{ymd1,jdbcType=VARCHAR},
+      </if>
+      <if test="ymd2 != null" >
+        #{ymd2,jdbcType=VARCHAR},
+      </if>
+      <if test="ymd3 != null" >
+        #{ymd3,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="preauthInfo != null" >
+        #{preauthInfo,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="priceInfo != null" >
+        #{priceInfo,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zdd.risk.bean.OrderInfoExample" resultType="java.lang.Integer" >
+    select count(*) from order_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update order_info
+    <set >
+      <if test="record.orderid != null" >
+        orderid = #{record.orderid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userid != null" >
+        userid = #{record.userid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productid != null" >
+        productid = #{record.productid,jdbcType=INTEGER},
+      </if>
+      <if test="record.priceid != null" >
+        priceid = #{record.priceid,jdbcType=INTEGER},
+      </if>
+      <if test="record.guarantee != null" >
+        guarantee = #{record.guarantee,jdbcType=TINYINT},
+      </if>
+      <if test="record.repayment != null" >
+        repayment = #{record.repayment,jdbcType=TINYINT},
+      </if>
+      <if test="record.picktype != null" >
+        picktype = #{record.picktype,jdbcType=INTEGER},
+      </if>
+      <if test="record.expressid != null" >
+        expressid = #{record.expressid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storeid != null" >
+        storeid = #{record.storeid,jdbcType=INTEGER},
+      </if>
+      <if test="record.shopid != null" >
+        shopid = #{record.shopid,jdbcType=INTEGER},
+      </if>
+      <if test="record.workid != null" >
+        workid = #{record.workid,jdbcType=INTEGER},
+      </if>
+      <if test="record.companyType != null" >
+        company_type = #{record.companyType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyid != null" >
+        companyid = #{record.companyid,jdbcType=INTEGER},
+      </if>
+      <if test="record.startdate != null" >
+        startdate = #{record.startdate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.enddate != null" >
+        enddate = #{record.enddate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itemid != null" >
+        itemid = #{record.itemid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.insuranceid != null" >
+        insuranceid = #{record.insuranceid,jdbcType=INTEGER},
+      </if>
+      <if test="record.activityid != null" >
+        activityid = #{record.activityid,jdbcType=INTEGER},
+      </if>
+      <if test="record.couponid != null" >
+        couponid = #{record.couponid,jdbcType=INTEGER},
+      </if>
+      <if test="record.discountid != null" >
+        discountid = #{record.discountid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lease != null" >
+        lease = #{record.lease,jdbcType=TINYINT},
+      </if>
+      <if test="record.periodNum != null" >
+        period_num = #{record.periodNum,jdbcType=TINYINT},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=TINYINT},
+      </if>
+      <if test="record.endType != null" >
+        end_type = #{record.endType,jdbcType=TINYINT},
+      </if>
+      <if test="record.returnsType != null" >
+        returns_type = #{record.returnsType,jdbcType=TINYINT},
+      </if>
+      <if test="record.returnsStatus != null" >
+        returns_status = #{record.returnsStatus,jdbcType=TINYINT},
+      </if>
+      <if test="record.cashType != null" >
+        cash_type = #{record.cashType,jdbcType=TINYINT},
+      </if>
+      <if test="record.cashValue != null" >
+        cash_value = #{record.cashValue,jdbcType=INTEGER},
+      </if>
+      <if test="record.cashStatus != null" >
+        cash_status = #{record.cashStatus,jdbcType=TINYINT},
+      </if>
+      <if test="record.refundStatus != null" >
+        refund_status = #{record.refundStatus,jdbcType=TINYINT},
+      </if>
+      <if test="record.source != null" >
+        source = #{record.source,jdbcType=TINYINT},
+      </if>
+      <if test="record.comeFrom != null" >
+        come_from = #{record.comeFrom,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lockDate != null" >
+        lock_date = #{record.lockDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ymdhms0 != null" >
+        ymdhms0 = #{record.ymdhms0,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ymdhms1 != null" >
+        ymdhms1 = #{record.ymdhms1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ymdhms2 != null" >
+        ymdhms2 = #{record.ymdhms2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ymdhms3 != null" >
+        ymdhms3 = #{record.ymdhms3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ymdhms4 != null" >
+        ymdhms4 = #{record.ymdhms4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ymd0 != null" >
+        ymd0 = #{record.ymd0,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ymd1 != null" >
+        ymd1 = #{record.ymd1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ymd2 != null" >
+        ymd2 = #{record.ymd2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ymd3 != null" >
+        ymd3 = #{record.ymd3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null" >
+        address = #{record.address,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.preauthInfo != null" >
+        preauth_info = #{record.preauthInfo,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.priceInfo != null" >
+        price_info = #{record.priceInfo,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update order_info
+    set orderid = #{record.orderid,jdbcType=VARCHAR},
+      userid = #{record.userid,jdbcType=VARCHAR},
+      productid = #{record.productid,jdbcType=INTEGER},
+      priceid = #{record.priceid,jdbcType=INTEGER},
+      guarantee = #{record.guarantee,jdbcType=TINYINT},
+      repayment = #{record.repayment,jdbcType=TINYINT},
+      picktype = #{record.picktype,jdbcType=INTEGER},
+      expressid = #{record.expressid,jdbcType=VARCHAR},
+      storeid = #{record.storeid,jdbcType=INTEGER},
+      shopid = #{record.shopid,jdbcType=INTEGER},
+      workid = #{record.workid,jdbcType=INTEGER},
+      company_type = #{record.companyType,jdbcType=VARCHAR},
+      companyid = #{record.companyid,jdbcType=INTEGER},
+      startdate = #{record.startdate,jdbcType=VARCHAR},
+      enddate = #{record.enddate,jdbcType=VARCHAR},
+      itemid = #{record.itemid,jdbcType=VARCHAR},
+      insuranceid = #{record.insuranceid,jdbcType=INTEGER},
+      activityid = #{record.activityid,jdbcType=INTEGER},
+      couponid = #{record.couponid,jdbcType=INTEGER},
+      discountid = #{record.discountid,jdbcType=VARCHAR},
+      lease = #{record.lease,jdbcType=TINYINT},
+      period_num = #{record.periodNum,jdbcType=TINYINT},
+      status = #{record.status,jdbcType=TINYINT},
+      end_type = #{record.endType,jdbcType=TINYINT},
+      returns_type = #{record.returnsType,jdbcType=TINYINT},
+      returns_status = #{record.returnsStatus,jdbcType=TINYINT},
+      cash_type = #{record.cashType,jdbcType=TINYINT},
+      cash_value = #{record.cashValue,jdbcType=INTEGER},
+      cash_status = #{record.cashStatus,jdbcType=TINYINT},
+      refund_status = #{record.refundStatus,jdbcType=TINYINT},
+      source = #{record.source,jdbcType=TINYINT},
+      come_from = #{record.comeFrom,jdbcType=VARCHAR},
+      lock_date = #{record.lockDate,jdbcType=VARCHAR},
+      ymdhms0 = #{record.ymdhms0,jdbcType=VARCHAR},
+      ymdhms1 = #{record.ymdhms1,jdbcType=VARCHAR},
+      ymdhms2 = #{record.ymdhms2,jdbcType=VARCHAR},
+      ymdhms3 = #{record.ymdhms3,jdbcType=VARCHAR},
+      ymdhms4 = #{record.ymdhms4,jdbcType=VARCHAR},
+      ymd0 = #{record.ymd0,jdbcType=VARCHAR},
+      ymd1 = #{record.ymd1,jdbcType=VARCHAR},
+      ymd2 = #{record.ymd2,jdbcType=VARCHAR},
+      ymd3 = #{record.ymd3,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=LONGVARCHAR},
+      preauth_info = #{record.preauthInfo,jdbcType=LONGVARCHAR},
+      price_info = #{record.priceInfo,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update order_info
+    set orderid = #{record.orderid,jdbcType=VARCHAR},
+      userid = #{record.userid,jdbcType=VARCHAR},
+      productid = #{record.productid,jdbcType=INTEGER},
+      priceid = #{record.priceid,jdbcType=INTEGER},
+      guarantee = #{record.guarantee,jdbcType=TINYINT},
+      repayment = #{record.repayment,jdbcType=TINYINT},
+      picktype = #{record.picktype,jdbcType=INTEGER},
+      expressid = #{record.expressid,jdbcType=VARCHAR},
+      storeid = #{record.storeid,jdbcType=INTEGER},
+      shopid = #{record.shopid,jdbcType=INTEGER},
+      workid = #{record.workid,jdbcType=INTEGER},
+      company_type = #{record.companyType,jdbcType=VARCHAR},
+      companyid = #{record.companyid,jdbcType=INTEGER},
+      startdate = #{record.startdate,jdbcType=VARCHAR},
+      enddate = #{record.enddate,jdbcType=VARCHAR},
+      itemid = #{record.itemid,jdbcType=VARCHAR},
+      insuranceid = #{record.insuranceid,jdbcType=INTEGER},
+      activityid = #{record.activityid,jdbcType=INTEGER},
+      couponid = #{record.couponid,jdbcType=INTEGER},
+      discountid = #{record.discountid,jdbcType=VARCHAR},
+      lease = #{record.lease,jdbcType=TINYINT},
+      period_num = #{record.periodNum,jdbcType=TINYINT},
+      status = #{record.status,jdbcType=TINYINT},
+      end_type = #{record.endType,jdbcType=TINYINT},
+      returns_type = #{record.returnsType,jdbcType=TINYINT},
+      returns_status = #{record.returnsStatus,jdbcType=TINYINT},
+      cash_type = #{record.cashType,jdbcType=TINYINT},
+      cash_value = #{record.cashValue,jdbcType=INTEGER},
+      cash_status = #{record.cashStatus,jdbcType=TINYINT},
+      refund_status = #{record.refundStatus,jdbcType=TINYINT},
+      source = #{record.source,jdbcType=TINYINT},
+      come_from = #{record.comeFrom,jdbcType=VARCHAR},
+      lock_date = #{record.lockDate,jdbcType=VARCHAR},
+      ymdhms0 = #{record.ymdhms0,jdbcType=VARCHAR},
+      ymdhms1 = #{record.ymdhms1,jdbcType=VARCHAR},
+      ymdhms2 = #{record.ymdhms2,jdbcType=VARCHAR},
+      ymdhms3 = #{record.ymdhms3,jdbcType=VARCHAR},
+      ymdhms4 = #{record.ymdhms4,jdbcType=VARCHAR},
+      ymd0 = #{record.ymd0,jdbcType=VARCHAR},
+      ymd1 = #{record.ymd1,jdbcType=VARCHAR},
+      ymd2 = #{record.ymd2,jdbcType=VARCHAR},
+      ymd3 = #{record.ymd3,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zdd.risk.bean.OrderInfoWithBLOBs" >
+    update order_info
+    <set >
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="productid != null" >
+        productid = #{productid,jdbcType=INTEGER},
+      </if>
+      <if test="priceid != null" >
+        priceid = #{priceid,jdbcType=INTEGER},
+      </if>
+      <if test="guarantee != null" >
+        guarantee = #{guarantee,jdbcType=TINYINT},
+      </if>
+      <if test="repayment != null" >
+        repayment = #{repayment,jdbcType=TINYINT},
+      </if>
+      <if test="picktype != null" >
+        picktype = #{picktype,jdbcType=INTEGER},
+      </if>
+      <if test="expressid != null" >
+        expressid = #{expressid,jdbcType=VARCHAR},
+      </if>
+      <if test="storeid != null" >
+        storeid = #{storeid,jdbcType=INTEGER},
+      </if>
+      <if test="shopid != null" >
+        shopid = #{shopid,jdbcType=INTEGER},
+      </if>
+      <if test="workid != null" >
+        workid = #{workid,jdbcType=INTEGER},
+      </if>
+      <if test="companyType != null" >
+        company_type = #{companyType,jdbcType=VARCHAR},
+      </if>
+      <if test="companyid != null" >
+        companyid = #{companyid,jdbcType=INTEGER},
+      </if>
+      <if test="startdate != null" >
+        startdate = #{startdate,jdbcType=VARCHAR},
+      </if>
+      <if test="enddate != null" >
+        enddate = #{enddate,jdbcType=VARCHAR},
+      </if>
+      <if test="itemid != null" >
+        itemid = #{itemid,jdbcType=VARCHAR},
+      </if>
+      <if test="insuranceid != null" >
+        insuranceid = #{insuranceid,jdbcType=INTEGER},
+      </if>
+      <if test="activityid != null" >
+        activityid = #{activityid,jdbcType=INTEGER},
+      </if>
+      <if test="couponid != null" >
+        couponid = #{couponid,jdbcType=INTEGER},
+      </if>
+      <if test="discountid != null" >
+        discountid = #{discountid,jdbcType=VARCHAR},
+      </if>
+      <if test="lease != null" >
+        lease = #{lease,jdbcType=TINYINT},
+      </if>
+      <if test="periodNum != null" >
+        period_num = #{periodNum,jdbcType=TINYINT},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="endType != null" >
+        end_type = #{endType,jdbcType=TINYINT},
+      </if>
+      <if test="returnsType != null" >
+        returns_type = #{returnsType,jdbcType=TINYINT},
+      </if>
+      <if test="returnsStatus != null" >
+        returns_status = #{returnsStatus,jdbcType=TINYINT},
+      </if>
+      <if test="cashType != null" >
+        cash_type = #{cashType,jdbcType=TINYINT},
+      </if>
+      <if test="cashValue != null" >
+        cash_value = #{cashValue,jdbcType=INTEGER},
+      </if>
+      <if test="cashStatus != null" >
+        cash_status = #{cashStatus,jdbcType=TINYINT},
+      </if>
+      <if test="refundStatus != null" >
+        refund_status = #{refundStatus,jdbcType=TINYINT},
+      </if>
+      <if test="source != null" >
+        source = #{source,jdbcType=TINYINT},
+      </if>
+      <if test="comeFrom != null" >
+        come_from = #{comeFrom,jdbcType=VARCHAR},
+      </if>
+      <if test="lockDate != null" >
+        lock_date = #{lockDate,jdbcType=VARCHAR},
+      </if>
+      <if test="ymdhms0 != null" >
+        ymdhms0 = #{ymdhms0,jdbcType=VARCHAR},
+      </if>
+      <if test="ymdhms1 != null" >
+        ymdhms1 = #{ymdhms1,jdbcType=VARCHAR},
+      </if>
+      <if test="ymdhms2 != null" >
+        ymdhms2 = #{ymdhms2,jdbcType=VARCHAR},
+      </if>
+      <if test="ymdhms3 != null" >
+        ymdhms3 = #{ymdhms3,jdbcType=VARCHAR},
+      </if>
+      <if test="ymdhms4 != null" >
+        ymdhms4 = #{ymdhms4,jdbcType=VARCHAR},
+      </if>
+      <if test="ymd0 != null" >
+        ymd0 = #{ymd0,jdbcType=VARCHAR},
+      </if>
+      <if test="ymd1 != null" >
+        ymd1 = #{ymd1,jdbcType=VARCHAR},
+      </if>
+      <if test="ymd2 != null" >
+        ymd2 = #{ymd2,jdbcType=VARCHAR},
+      </if>
+      <if test="ymd3 != null" >
+        ymd3 = #{ymd3,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="preauthInfo != null" >
+        preauth_info = #{preauthInfo,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="priceInfo != null" >
+        price_info = #{priceInfo,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where orderid = #{orderid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zdd.risk.bean.OrderInfoWithBLOBs" >
+    update order_info
+    set userid = #{userid,jdbcType=VARCHAR},
+      productid = #{productid,jdbcType=INTEGER},
+      priceid = #{priceid,jdbcType=INTEGER},
+      guarantee = #{guarantee,jdbcType=TINYINT},
+      repayment = #{repayment,jdbcType=TINYINT},
+      picktype = #{picktype,jdbcType=INTEGER},
+      expressid = #{expressid,jdbcType=VARCHAR},
+      storeid = #{storeid,jdbcType=INTEGER},
+      shopid = #{shopid,jdbcType=INTEGER},
+      workid = #{workid,jdbcType=INTEGER},
+      company_type = #{companyType,jdbcType=VARCHAR},
+      companyid = #{companyid,jdbcType=INTEGER},
+      startdate = #{startdate,jdbcType=VARCHAR},
+      enddate = #{enddate,jdbcType=VARCHAR},
+      itemid = #{itemid,jdbcType=VARCHAR},
+      insuranceid = #{insuranceid,jdbcType=INTEGER},
+      activityid = #{activityid,jdbcType=INTEGER},
+      couponid = #{couponid,jdbcType=INTEGER},
+      discountid = #{discountid,jdbcType=VARCHAR},
+      lease = #{lease,jdbcType=TINYINT},
+      period_num = #{periodNum,jdbcType=TINYINT},
+      status = #{status,jdbcType=TINYINT},
+      end_type = #{endType,jdbcType=TINYINT},
+      returns_type = #{returnsType,jdbcType=TINYINT},
+      returns_status = #{returnsStatus,jdbcType=TINYINT},
+      cash_type = #{cashType,jdbcType=TINYINT},
+      cash_value = #{cashValue,jdbcType=INTEGER},
+      cash_status = #{cashStatus,jdbcType=TINYINT},
+      refund_status = #{refundStatus,jdbcType=TINYINT},
+      source = #{source,jdbcType=TINYINT},
+      come_from = #{comeFrom,jdbcType=VARCHAR},
+      lock_date = #{lockDate,jdbcType=VARCHAR},
+      ymdhms0 = #{ymdhms0,jdbcType=VARCHAR},
+      ymdhms1 = #{ymdhms1,jdbcType=VARCHAR},
+      ymdhms2 = #{ymdhms2,jdbcType=VARCHAR},
+      ymdhms3 = #{ymdhms3,jdbcType=VARCHAR},
+      ymdhms4 = #{ymdhms4,jdbcType=VARCHAR},
+      ymd0 = #{ymd0,jdbcType=VARCHAR},
+      ymd1 = #{ymd1,jdbcType=VARCHAR},
+      ymd2 = #{ymd2,jdbcType=VARCHAR},
+      ymd3 = #{ymd3,jdbcType=VARCHAR},
+      address = #{address,jdbcType=LONGVARCHAR},
+      preauth_info = #{preauthInfo,jdbcType=LONGVARCHAR},
+      price_info = #{priceInfo,jdbcType=LONGVARCHAR}
+    where orderid = #{orderid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zdd.risk.bean.OrderInfo" >
+    update order_info
+    set userid = #{userid,jdbcType=VARCHAR},
+      productid = #{productid,jdbcType=INTEGER},
+      priceid = #{priceid,jdbcType=INTEGER},
+      guarantee = #{guarantee,jdbcType=TINYINT},
+      repayment = #{repayment,jdbcType=TINYINT},
+      picktype = #{picktype,jdbcType=INTEGER},
+      expressid = #{expressid,jdbcType=VARCHAR},
+      storeid = #{storeid,jdbcType=INTEGER},
+      shopid = #{shopid,jdbcType=INTEGER},
+      workid = #{workid,jdbcType=INTEGER},
+      company_type = #{companyType,jdbcType=VARCHAR},
+      companyid = #{companyid,jdbcType=INTEGER},
+      startdate = #{startdate,jdbcType=VARCHAR},
+      enddate = #{enddate,jdbcType=VARCHAR},
+      itemid = #{itemid,jdbcType=VARCHAR},
+      insuranceid = #{insuranceid,jdbcType=INTEGER},
+      activityid = #{activityid,jdbcType=INTEGER},
+      couponid = #{couponid,jdbcType=INTEGER},
+      discountid = #{discountid,jdbcType=VARCHAR},
+      lease = #{lease,jdbcType=TINYINT},
+      period_num = #{periodNum,jdbcType=TINYINT},
+      status = #{status,jdbcType=TINYINT},
+      end_type = #{endType,jdbcType=TINYINT},
+      returns_type = #{returnsType,jdbcType=TINYINT},
+      returns_status = #{returnsStatus,jdbcType=TINYINT},
+      cash_type = #{cashType,jdbcType=TINYINT},
+      cash_value = #{cashValue,jdbcType=INTEGER},
+      cash_status = #{cashStatus,jdbcType=TINYINT},
+      refund_status = #{refundStatus,jdbcType=TINYINT},
+      source = #{source,jdbcType=TINYINT},
+      come_from = #{comeFrom,jdbcType=VARCHAR},
+      lock_date = #{lockDate,jdbcType=VARCHAR},
+      ymdhms0 = #{ymdhms0,jdbcType=VARCHAR},
+      ymdhms1 = #{ymdhms1,jdbcType=VARCHAR},
+      ymdhms2 = #{ymdhms2,jdbcType=VARCHAR},
+      ymdhms3 = #{ymdhms3,jdbcType=VARCHAR},
+      ymdhms4 = #{ymdhms4,jdbcType=VARCHAR},
+      ymd0 = #{ymd0,jdbcType=VARCHAR},
+      ymd1 = #{ymd1,jdbcType=VARCHAR},
+      ymd2 = #{ymd2,jdbcType=VARCHAR},
+      ymd3 = #{ymd3,jdbcType=VARCHAR}
+    where orderid = #{orderid,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByUserId" parameterType="string" resultType="com.zdd.risk.bean.OrderInfo">
+
+
+    (Select * from order_info_1 where userid=#{userid})UNION ALL
+(Select * from order_info_2 where userid=#{userid})UNION ALL
+(Select * from order_info_3 where userid=#{userid})UNION ALL
+(Select * from order_info_4 where userid=#{userid})UNION ALL
+(Select * from order_info_5 where userid=#{userid})
+  </select>
+
+  <select id="selectAll" resultType="com.zdd.risk.bean.OrderInfo">
+
+       (Select * from order_info_1 WHERE status in (2,3,4))UNION ALL
+(Select * from order_info_2 WHERE status in (2,3,4) )UNION ALL
+(Select * from order_info_3 WHERE status in (2,3,4) )UNION ALL
+(Select * from order_info_4 WHERE status in (2,3,4) )UNION ALL
+(Select * from order_info_5 WHERE status in (2,3,4) )
+  </select>
+
+  <select id="selectByUserid4" parameterType="string" resultType="com.zdd.risk.bean.OrderInfo">
+      (Select * from order_info_1 where userid=#{userid} and status=4 )UNION ALL
+(Select * from order_info_2 where userid=#{userid} and status=4 )UNION ALL
+(Select * from order_info_3 where userid=#{userid} and status=4 )UNION ALL
+(Select * from order_info_4 where userid=#{userid} and status=4 )UNION ALL
+(Select * from order_info_5 where userid=#{userid} and status=4)
+
+  </select>
+</mapper>

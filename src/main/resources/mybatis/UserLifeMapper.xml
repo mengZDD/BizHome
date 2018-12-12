@@ -1,0 +1,770 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zdd.risk.dao.UserLifeMapper" >
+  <resultMap id="BaseResultMap" type="com.zdd.risk.bean.UserLife" >
+    <id column="userid" property="userid" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="TINYINT" />
+    <result column="realname" property="realname" jdbcType="VARCHAR" />
+    <result column="tel" property="tel" jdbcType="VARCHAR" />
+    <result column="birthday" property="birthday" jdbcType="VARCHAR" />
+    <result column="idcard_no" property="idcardNo" jdbcType="VARCHAR" />
+    <result column="idcard_date" property="idcardDate" jdbcType="VARCHAR" />
+    <result column="idcard_org" property="idcardOrg" jdbcType="VARCHAR" />
+    <result column="idcard_addr" property="idcardAddr" jdbcType="VARCHAR" />
+    <result column="idcard_front" property="idcardFront" jdbcType="VARCHAR" />
+    <result column="idcard_back" property="idcardBack" jdbcType="VARCHAR" />
+    <result column="faceimg" property="faceimg" jdbcType="VARCHAR" />
+    <result column="linkman" property="linkman" jdbcType="VARCHAR" />
+    <result column="linktel" property="linktel" jdbcType="VARCHAR" />
+    <result column="nation" property="nation" jdbcType="VARCHAR" />
+    <result column="province" property="province" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="county" property="county" jdbcType="VARCHAR" />
+    <result column="town" property="town" jdbcType="VARCHAR" />
+    <result column="place" property="place" jdbcType="VARCHAR" />
+    <result column="location" property="location" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="zhima_grade" property="zhimaGrade" jdbcType="VARCHAR" />
+    <result column="zhima_time" property="zhimaTime" jdbcType="VARCHAR" />
+    <result column="risk_level" property="riskLevel" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="status2" property="status2" jdbcType="TINYINT" />
+    <result column="ymd" property="ymd" jdbcType="VARCHAR" />
+    <result column="ymdhms" property="ymdhms" jdbcType="VARCHAR" />
+    <result column="update_ts" property="updateTs" jdbcType="BIGINT" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.zdd.risk.bean.UserLifeWithBLOBs" extends="BaseResultMap" >
+    <result column="linkdata" property="linkdata" jdbcType="LONGVARCHAR" />
+    <result column="address_list" property="addressList" jdbcType="LONGVARCHAR" />
+    <result column="remark" property="remark" jdbcType="LONGVARCHAR" />
+    <result column="risk_result" property="riskResult" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    userid, type, realname, tel, birthday, idcard_no, idcard_date, idcard_org, idcard_addr, 
+    idcard_front, idcard_back, faceimg, linkman, linktel, nation, province, city, county, 
+    town, place, location, address, zhima_grade, zhima_time, risk_level, status, status2, 
+    ymd, ymdhms, update_ts
+  </sql>
+  <sql id="Blob_Column_List" >
+    linkdata, address_list, remark, risk_result
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.zdd.risk.bean.UserLifeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from user_life
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zdd.risk.bean.UserLifeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user_life
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from user_life
+    where userid = #{userid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from user_life
+    where userid = #{userid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zdd.risk.bean.UserLifeExample" >
+    delete from user_life
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zdd.risk.bean.UserLifeWithBLOBs" >
+    insert into user_life (userid, type, realname, 
+      tel, birthday, idcard_no, 
+      idcard_date, idcard_org, idcard_addr, 
+      idcard_front, idcard_back, faceimg, 
+      linkman, linktel, nation, 
+      province, city, county, 
+      town, place, location, 
+      address, zhima_grade, zhima_time, 
+      risk_level, status, status2, 
+      ymd, ymdhms, update_ts, 
+      linkdata, address_list, remark, 
+      risk_result)
+    values (#{userid,jdbcType=VARCHAR}, #{type,jdbcType=TINYINT}, #{realname,jdbcType=VARCHAR}, 
+      #{tel,jdbcType=VARCHAR}, #{birthday,jdbcType=VARCHAR}, #{idcardNo,jdbcType=VARCHAR}, 
+      #{idcardDate,jdbcType=VARCHAR}, #{idcardOrg,jdbcType=VARCHAR}, #{idcardAddr,jdbcType=VARCHAR}, 
+      #{idcardFront,jdbcType=VARCHAR}, #{idcardBack,jdbcType=VARCHAR}, #{faceimg,jdbcType=VARCHAR}, 
+      #{linkman,jdbcType=VARCHAR}, #{linktel,jdbcType=VARCHAR}, #{nation,jdbcType=VARCHAR}, 
+      #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{county,jdbcType=VARCHAR}, 
+      #{town,jdbcType=VARCHAR}, #{place,jdbcType=VARCHAR}, #{location,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{zhimaGrade,jdbcType=VARCHAR}, #{zhimaTime,jdbcType=VARCHAR}, 
+      #{riskLevel,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, #{status2,jdbcType=TINYINT}, 
+      #{ymd,jdbcType=VARCHAR}, #{ymdhms,jdbcType=VARCHAR}, #{updateTs,jdbcType=BIGINT}, 
+      #{linkdata,jdbcType=LONGVARCHAR}, #{addressList,jdbcType=LONGVARCHAR}, #{remark,jdbcType=LONGVARCHAR}, 
+      #{riskResult,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zdd.risk.bean.UserLifeWithBLOBs" >
+    insert into user_life
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="realname != null" >
+        realname,
+      </if>
+      <if test="tel != null" >
+        tel,
+      </if>
+      <if test="birthday != null" >
+        birthday,
+      </if>
+      <if test="idcardNo != null" >
+        idcard_no,
+      </if>
+      <if test="idcardDate != null" >
+        idcard_date,
+      </if>
+      <if test="idcardOrg != null" >
+        idcard_org,
+      </if>
+      <if test="idcardAddr != null" >
+        idcard_addr,
+      </if>
+      <if test="idcardFront != null" >
+        idcard_front,
+      </if>
+      <if test="idcardBack != null" >
+        idcard_back,
+      </if>
+      <if test="faceimg != null" >
+        faceimg,
+      </if>
+      <if test="linkman != null" >
+        linkman,
+      </if>
+      <if test="linktel != null" >
+        linktel,
+      </if>
+      <if test="nation != null" >
+        nation,
+      </if>
+      <if test="province != null" >
+        province,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="county != null" >
+        county,
+      </if>
+      <if test="town != null" >
+        town,
+      </if>
+      <if test="place != null" >
+        place,
+      </if>
+      <if test="location != null" >
+        location,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="zhimaGrade != null" >
+        zhima_grade,
+      </if>
+      <if test="zhimaTime != null" >
+        zhima_time,
+      </if>
+      <if test="riskLevel != null" >
+        risk_level,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="status2 != null" >
+        status2,
+      </if>
+      <if test="ymd != null" >
+        ymd,
+      </if>
+      <if test="ymdhms != null" >
+        ymdhms,
+      </if>
+      <if test="updateTs != null" >
+        update_ts,
+      </if>
+      <if test="linkdata != null" >
+        linkdata,
+      </if>
+      <if test="addressList != null" >
+        address_list,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="riskResult != null" >
+        risk_result,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=TINYINT},
+      </if>
+      <if test="realname != null" >
+        #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null" >
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        #{birthday,jdbcType=VARCHAR},
+      </if>
+      <if test="idcardNo != null" >
+        #{idcardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="idcardDate != null" >
+        #{idcardDate,jdbcType=VARCHAR},
+      </if>
+      <if test="idcardOrg != null" >
+        #{idcardOrg,jdbcType=VARCHAR},
+      </if>
+      <if test="idcardAddr != null" >
+        #{idcardAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="idcardFront != null" >
+        #{idcardFront,jdbcType=VARCHAR},
+      </if>
+      <if test="idcardBack != null" >
+        #{idcardBack,jdbcType=VARCHAR},
+      </if>
+      <if test="faceimg != null" >
+        #{faceimg,jdbcType=VARCHAR},
+      </if>
+      <if test="linkman != null" >
+        #{linkman,jdbcType=VARCHAR},
+      </if>
+      <if test="linktel != null" >
+        #{linktel,jdbcType=VARCHAR},
+      </if>
+      <if test="nation != null" >
+        #{nation,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="county != null" >
+        #{county,jdbcType=VARCHAR},
+      </if>
+      <if test="town != null" >
+        #{town,jdbcType=VARCHAR},
+      </if>
+      <if test="place != null" >
+        #{place,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null" >
+        #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="zhimaGrade != null" >
+        #{zhimaGrade,jdbcType=VARCHAR},
+      </if>
+      <if test="zhimaTime != null" >
+        #{zhimaTime,jdbcType=VARCHAR},
+      </if>
+      <if test="riskLevel != null" >
+        #{riskLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="status2 != null" >
+        #{status2,jdbcType=TINYINT},
+      </if>
+      <if test="ymd != null" >
+        #{ymd,jdbcType=VARCHAR},
+      </if>
+      <if test="ymdhms != null" >
+        #{ymdhms,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTs != null" >
+        #{updateTs,jdbcType=BIGINT},
+      </if>
+      <if test="linkdata != null" >
+        #{linkdata,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="addressList != null" >
+        #{addressList,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="riskResult != null" >
+        #{riskResult,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zdd.risk.bean.UserLifeExample" resultType="java.lang.Integer" >
+    select count(*) from user_life
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update user_life
+    <set >
+      <if test="record.userid != null" >
+        userid = #{record.userid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=TINYINT},
+      </if>
+      <if test="record.realname != null" >
+        realname = #{record.realname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tel != null" >
+        tel = #{record.tel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.birthday != null" >
+        birthday = #{record.birthday,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idcardNo != null" >
+        idcard_no = #{record.idcardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idcardDate != null" >
+        idcard_date = #{record.idcardDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idcardOrg != null" >
+        idcard_org = #{record.idcardOrg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idcardAddr != null" >
+        idcard_addr = #{record.idcardAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idcardFront != null" >
+        idcard_front = #{record.idcardFront,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idcardBack != null" >
+        idcard_back = #{record.idcardBack,jdbcType=VARCHAR},
+      </if>
+      <if test="record.faceimg != null" >
+        faceimg = #{record.faceimg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.linkman != null" >
+        linkman = #{record.linkman,jdbcType=VARCHAR},
+      </if>
+      <if test="record.linktel != null" >
+        linktel = #{record.linktel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nation != null" >
+        nation = #{record.nation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.province != null" >
+        province = #{record.province,jdbcType=VARCHAR},
+      </if>
+      <if test="record.city != null" >
+        city = #{record.city,jdbcType=VARCHAR},
+      </if>
+      <if test="record.county != null" >
+        county = #{record.county,jdbcType=VARCHAR},
+      </if>
+      <if test="record.town != null" >
+        town = #{record.town,jdbcType=VARCHAR},
+      </if>
+      <if test="record.place != null" >
+        place = #{record.place,jdbcType=VARCHAR},
+      </if>
+      <if test="record.location != null" >
+        location = #{record.location,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null" >
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zhimaGrade != null" >
+        zhima_grade = #{record.zhimaGrade,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zhimaTime != null" >
+        zhima_time = #{record.zhimaTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.riskLevel != null" >
+        risk_level = #{record.riskLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=TINYINT},
+      </if>
+      <if test="record.status2 != null" >
+        status2 = #{record.status2,jdbcType=TINYINT},
+      </if>
+      <if test="record.ymd != null" >
+        ymd = #{record.ymd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ymdhms != null" >
+        ymdhms = #{record.ymdhms,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTs != null" >
+        update_ts = #{record.updateTs,jdbcType=BIGINT},
+      </if>
+      <if test="record.linkdata != null" >
+        linkdata = #{record.linkdata,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.addressList != null" >
+        address_list = #{record.addressList,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.riskResult != null" >
+        risk_result = #{record.riskResult,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update user_life
+    set userid = #{record.userid,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=TINYINT},
+      realname = #{record.realname,jdbcType=VARCHAR},
+      tel = #{record.tel,jdbcType=VARCHAR},
+      birthday = #{record.birthday,jdbcType=VARCHAR},
+      idcard_no = #{record.idcardNo,jdbcType=VARCHAR},
+      idcard_date = #{record.idcardDate,jdbcType=VARCHAR},
+      idcard_org = #{record.idcardOrg,jdbcType=VARCHAR},
+      idcard_addr = #{record.idcardAddr,jdbcType=VARCHAR},
+      idcard_front = #{record.idcardFront,jdbcType=VARCHAR},
+      idcard_back = #{record.idcardBack,jdbcType=VARCHAR},
+      faceimg = #{record.faceimg,jdbcType=VARCHAR},
+      linkman = #{record.linkman,jdbcType=VARCHAR},
+      linktel = #{record.linktel,jdbcType=VARCHAR},
+      nation = #{record.nation,jdbcType=VARCHAR},
+      province = #{record.province,jdbcType=VARCHAR},
+      city = #{record.city,jdbcType=VARCHAR},
+      county = #{record.county,jdbcType=VARCHAR},
+      town = #{record.town,jdbcType=VARCHAR},
+      place = #{record.place,jdbcType=VARCHAR},
+      location = #{record.location,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      zhima_grade = #{record.zhimaGrade,jdbcType=VARCHAR},
+      zhima_time = #{record.zhimaTime,jdbcType=VARCHAR},
+      risk_level = #{record.riskLevel,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=TINYINT},
+      status2 = #{record.status2,jdbcType=TINYINT},
+      ymd = #{record.ymd,jdbcType=VARCHAR},
+      ymdhms = #{record.ymdhms,jdbcType=VARCHAR},
+      update_ts = #{record.updateTs,jdbcType=BIGINT},
+      linkdata = #{record.linkdata,jdbcType=LONGVARCHAR},
+      address_list = #{record.addressList,jdbcType=LONGVARCHAR},
+      remark = #{record.remark,jdbcType=LONGVARCHAR},
+      risk_result = #{record.riskResult,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update user_life
+    set userid = #{record.userid,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=TINYINT},
+      realname = #{record.realname,jdbcType=VARCHAR},
+      tel = #{record.tel,jdbcType=VARCHAR},
+      birthday = #{record.birthday,jdbcType=VARCHAR},
+      idcard_no = #{record.idcardNo,jdbcType=VARCHAR},
+      idcard_date = #{record.idcardDate,jdbcType=VARCHAR},
+      idcard_org = #{record.idcardOrg,jdbcType=VARCHAR},
+      idcard_addr = #{record.idcardAddr,jdbcType=VARCHAR},
+      idcard_front = #{record.idcardFront,jdbcType=VARCHAR},
+      idcard_back = #{record.idcardBack,jdbcType=VARCHAR},
+      faceimg = #{record.faceimg,jdbcType=VARCHAR},
+      linkman = #{record.linkman,jdbcType=VARCHAR},
+      linktel = #{record.linktel,jdbcType=VARCHAR},
+      nation = #{record.nation,jdbcType=VARCHAR},
+      province = #{record.province,jdbcType=VARCHAR},
+      city = #{record.city,jdbcType=VARCHAR},
+      county = #{record.county,jdbcType=VARCHAR},
+      town = #{record.town,jdbcType=VARCHAR},
+      place = #{record.place,jdbcType=VARCHAR},
+      location = #{record.location,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      zhima_grade = #{record.zhimaGrade,jdbcType=VARCHAR},
+      zhima_time = #{record.zhimaTime,jdbcType=VARCHAR},
+      risk_level = #{record.riskLevel,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=TINYINT},
+      status2 = #{record.status2,jdbcType=TINYINT},
+      ymd = #{record.ymd,jdbcType=VARCHAR},
+      ymdhms = #{record.ymdhms,jdbcType=VARCHAR},
+      update_ts = #{record.updateTs,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zdd.risk.bean.UserLifeWithBLOBs" >
+    update user_life
+    <set >
+      <if test="type != null" >
+        type = #{type,jdbcType=TINYINT},
+      </if>
+      <if test="realname != null" >
+        realname = #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null" >
+        tel = #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        birthday = #{birthday,jdbcType=VARCHAR},
+      </if>
+      <if test="idcardNo != null" >
+        idcard_no = #{idcardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="idcardDate != null" >
+        idcard_date = #{idcardDate,jdbcType=VARCHAR},
+      </if>
+      <if test="idcardOrg != null" >
+        idcard_org = #{idcardOrg,jdbcType=VARCHAR},
+      </if>
+      <if test="idcardAddr != null" >
+        idcard_addr = #{idcardAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="idcardFront != null" >
+        idcard_front = #{idcardFront,jdbcType=VARCHAR},
+      </if>
+      <if test="idcardBack != null" >
+        idcard_back = #{idcardBack,jdbcType=VARCHAR},
+      </if>
+      <if test="faceimg != null" >
+        faceimg = #{faceimg,jdbcType=VARCHAR},
+      </if>
+      <if test="linkman != null" >
+        linkman = #{linkman,jdbcType=VARCHAR},
+      </if>
+      <if test="linktel != null" >
+        linktel = #{linktel,jdbcType=VARCHAR},
+      </if>
+      <if test="nation != null" >
+        nation = #{nation,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="county != null" >
+        county = #{county,jdbcType=VARCHAR},
+      </if>
+      <if test="town != null" >
+        town = #{town,jdbcType=VARCHAR},
+      </if>
+      <if test="place != null" >
+        place = #{place,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null" >
+        location = #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="zhimaGrade != null" >
+        zhima_grade = #{zhimaGrade,jdbcType=VARCHAR},
+      </if>
+      <if test="zhimaTime != null" >
+        zhima_time = #{zhimaTime,jdbcType=VARCHAR},
+      </if>
+      <if test="riskLevel != null" >
+        risk_level = #{riskLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="status2 != null" >
+        status2 = #{status2,jdbcType=TINYINT},
+      </if>
+      <if test="ymd != null" >
+        ymd = #{ymd,jdbcType=VARCHAR},
+      </if>
+      <if test="ymdhms != null" >
+        ymdhms = #{ymdhms,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTs != null" >
+        update_ts = #{updateTs,jdbcType=BIGINT},
+      </if>
+      <if test="linkdata != null" >
+        linkdata = #{linkdata,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="addressList != null" >
+        address_list = #{addressList,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="riskResult != null" >
+        risk_result = #{riskResult,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where userid = #{userid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zdd.risk.bean.UserLifeWithBLOBs" >
+    update user_life
+    set type = #{type,jdbcType=TINYINT},
+      realname = #{realname,jdbcType=VARCHAR},
+      tel = #{tel,jdbcType=VARCHAR},
+      birthday = #{birthday,jdbcType=VARCHAR},
+      idcard_no = #{idcardNo,jdbcType=VARCHAR},
+      idcard_date = #{idcardDate,jdbcType=VARCHAR},
+      idcard_org = #{idcardOrg,jdbcType=VARCHAR},
+      idcard_addr = #{idcardAddr,jdbcType=VARCHAR},
+      idcard_front = #{idcardFront,jdbcType=VARCHAR},
+      idcard_back = #{idcardBack,jdbcType=VARCHAR},
+      faceimg = #{faceimg,jdbcType=VARCHAR},
+      linkman = #{linkman,jdbcType=VARCHAR},
+      linktel = #{linktel,jdbcType=VARCHAR},
+      nation = #{nation,jdbcType=VARCHAR},
+      province = #{province,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      county = #{county,jdbcType=VARCHAR},
+      town = #{town,jdbcType=VARCHAR},
+      place = #{place,jdbcType=VARCHAR},
+      location = #{location,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      zhima_grade = #{zhimaGrade,jdbcType=VARCHAR},
+      zhima_time = #{zhimaTime,jdbcType=VARCHAR},
+      risk_level = #{riskLevel,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      status2 = #{status2,jdbcType=TINYINT},
+      ymd = #{ymd,jdbcType=VARCHAR},
+      ymdhms = #{ymdhms,jdbcType=VARCHAR},
+      update_ts = #{updateTs,jdbcType=BIGINT},
+      linkdata = #{linkdata,jdbcType=LONGVARCHAR},
+      address_list = #{addressList,jdbcType=LONGVARCHAR},
+      remark = #{remark,jdbcType=LONGVARCHAR},
+      risk_result = #{riskResult,jdbcType=LONGVARCHAR}
+    where userid = #{userid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zdd.risk.bean.UserLife" >
+    update user_life
+    set type = #{type,jdbcType=TINYINT},
+      realname = #{realname,jdbcType=VARCHAR},
+      tel = #{tel,jdbcType=VARCHAR},
+      birthday = #{birthday,jdbcType=VARCHAR},
+      idcard_no = #{idcardNo,jdbcType=VARCHAR},
+      idcard_date = #{idcardDate,jdbcType=VARCHAR},
+      idcard_org = #{idcardOrg,jdbcType=VARCHAR},
+      idcard_addr = #{idcardAddr,jdbcType=VARCHAR},
+      idcard_front = #{idcardFront,jdbcType=VARCHAR},
+      idcard_back = #{idcardBack,jdbcType=VARCHAR},
+      faceimg = #{faceimg,jdbcType=VARCHAR},
+      linkman = #{linkman,jdbcType=VARCHAR},
+      linktel = #{linktel,jdbcType=VARCHAR},
+      nation = #{nation,jdbcType=VARCHAR},
+      province = #{province,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      county = #{county,jdbcType=VARCHAR},
+      town = #{town,jdbcType=VARCHAR},
+      place = #{place,jdbcType=VARCHAR},
+      location = #{location,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      zhima_grade = #{zhimaGrade,jdbcType=VARCHAR},
+      zhima_time = #{zhimaTime,jdbcType=VARCHAR},
+      risk_level = #{riskLevel,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      status2 = #{status2,jdbcType=TINYINT},
+      ymd = #{ymd,jdbcType=VARCHAR},
+      ymdhms = #{ymdhms,jdbcType=VARCHAR},
+      update_ts = #{updateTs,jdbcType=BIGINT}
+    where userid = #{userid,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByList" parameterType="java.util.List" resultType="int">
+    select count(distinct idcard_no) from user_life
+    <where>
+      userid IN
+      <foreach collection="list" item="item" separator="," open="(" close=")" index="index">
+        #{item,jdbcType=VARCHAR}
+      </foreach>
+    </where>
+  </select>
+</mapper>
